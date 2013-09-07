@@ -1,0 +1,35 @@
+<rocket path="Images/Tilesets/Rockets.png">
+  <rocketspr>
+    <tile x="0" y="0" xsiz="32" ysiz="32"/>
+    <tile x="32" y="0" xsiz="32" ysiz="32"/>
+    <tile x="64" y="0" xsiz="32" ysiz="32"/>
+  </rocketspr>
+  <target>
+    <tile x="0"   y="32" xsiz="32" ysiz="32"/>
+    <tile x="32"  y="32" xsiz="32" ysiz="32"/>
+    <tile x="64"  y="32" xsiz="32" ysiz="32"/>
+    <tile x="96"  y="32" xsiz="32" ysiz="32"/>
+    <tile x="128" y="32" xsiz="32" ysiz="32"/>
+    <tile x="160" y="32" xsiz="32" ysiz="32"/>
+    <tile x="192" y="32" xsiz="32" ysiz="32"/>
+    <tile x="224" y="32" xsiz="32" ysiz="32"/> 
+  </target>
+  <fire>
+    <tile x="0"   y="64" xsiz="32" ysiz="32"/>
+    <tile x="32"  y="64" xsiz="32" ysiz="32"/>
+    <tile x="64"  y="64" xsiz="32" ysiz="32"/>
+    <tile x="96"  y="64" xsiz="32" ysiz="32"/>
+    <tile x="128" y="64" xsiz="32" ysiz="32"/>
+    <tile x="160" y="64" xsiz="32" ysiz="32"/>
+    <tile x="192" y="64" xsiz="32" ysiz="32"/> 
+    <tile x="224" y="64" xsiz="32" ysiz="32"/>
+    <tile x="256" y="64" xsiz="32" ysiz="32"/>
+    <tile x="288" y="64" xsiz="32" ysiz="32"/>
+    <tile x="320" y="64" xsiz="32" ysiz="32"/>
+    <tile x="352" y="64" xsiz="32" ysiz="32"/>
+    <tile x="384" y="64" xsiz="32" ysiz="32"/>
+    <tile x="416" y="64" xsiz="32" ysiz="32"/>
+    <tile x="448" y="64" xsiz="32" ysiz="32"/>
+    <tile x="480" y="64" xsiz="32" ysiz="32"/>
+  </fire> 
+</rocket>

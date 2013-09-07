@@ -1,0 +1,19 @@
+<pwup path="Images/Tilesets/Powerups.png">
+  <icon>
+    <tile x="0  " y="0" xsiz="32" ysiz="32"/>
+    <tile x="32 " y="0" xsiz="32" ysiz="32"/>
+    <tile x="64 " y="0" xsiz="32" ysiz="32"/>
+    <tile x="96 " y="0" xsiz="32" ysiz="32"/>
+    <tile x="128" y="0" xsiz="32" ysiz="32"/>
+  </icon>
+  <anim>
+    <tile x="0  " y="32" xsiz="32" ysiz="32"/>
+    <tile x="32 " y="32" xsiz="32" ysiz="32"/>
+    <tile x="64 " y="32" xsiz="32" ysiz="32"/>
+    <tile x="96 " y="32" xsiz="32" ysiz="32"/>
+    <tile x="128" y="32" xsiz="32" ysiz="32"/>
+    <tile x="160" y="32" xsiz="32" ysiz="32"/>
+    <tile x="192" y="32" xsiz="32" ysiz="32"/>
+    <tile x="224" y="32" xsiz="32" ysiz="32"/>
+  </anim> 
+</pwup>

@@ -1,0 +1,39 @@
+<level>
+	<imagefile path="Images/Tilesets/Tiles.png">
+		<tile x="0"   y="160" xsiz="32" ysiz="32"/>
+		<tile x="32"  y="160" xsiz="32" ysiz="32"/>
+		<tile x="64"  y="160" xsiz="32" ysiz="32"/>
+		<tile x="96"  y="160" xsiz="32" ysiz="32"/>
+		<tile x="128" y="160" xsiz="32" ysiz="32"/> 	
+	</imagefile>
+
+  <bg path="Images/Themes/Back5.png">
+    <tile x="0"   y="0"  xsiz="160" ysiz="480"/>
+    <tile x="160"  y="0" xsiz="160" ysiz="480"/>
+  </bg>
+	
+	<map softamt="100">
+		<row no="0"  id="11111111911111111"/>
+		<row no="1"  id="19991991919919991"/>
+		<row no="2"  id="19111911111911191"/>
+		<row no="3"  id="19199919991999191"/>
+		<row no="4"  id="11111111911111111"/>
+		<row no="5"  id="19919100900191991"/>
+		<row no="6"  id="11919101910191911"/>
+		<row no="7"  id="91919999999991919"/>
+		<row no="8"  id="11919101910191911"/>
+		<row no="9"  id="19919100900191991"/>
+		<row no="10" id="11111111911111111"/>
+		<row no="11" id="19199919991999191"/>
+		<row no="12" id="19111911111911191"/>
+		<row no="13" id="19991991919919991"/>
+		<row no="14" id="11111111911111111"/>
+	</map>
+	
+	<startpositions>
+		<pos x="6" y="5"/>
+		<pos x="10" y="9"/>
+		<pos x="6" y="9"/>
+		<pos x="10" y="5"/>
+	</startpositions>
+</level>

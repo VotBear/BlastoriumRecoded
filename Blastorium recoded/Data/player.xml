@@ -1,0 +1,40 @@
+<player>
+	<colors amount="5" path="Images/Tilesets/Players.png">
+		<tile x="0"   y="0" xsiz="32" ysiz="32"/>
+		<tile x="32"  y="0" xsiz="32" ysiz="32"/>
+		<tile x="64"  y="0" xsiz="32" ysiz="32"/>
+		<tile x="96"  y="0" xsiz="32" ysiz="32"/>
+		<tile x="128" y="0" xsiz="32" ysiz="32"/> 	
+	</colors>
+
+  <eyes>
+    <tile x="0"   y="32" xsiz="32" ysiz="32"/>
+    <tile x="32"  y="32" xsiz="32" ysiz="32"/>
+    <tile x="64"  y="32" xsiz="32" ysiz="32"/>
+    <tile x="96"  y="32" xsiz="32" ysiz="32"/>
+  </eyes>
+ 
+  <hpbar path="Images/Tilesets/HPBars.png">
+    <tile x="0"  y="12" xsiz="24" ysiz="24"/>
+    <tile x="0"  y="36" xsiz="24" ysiz="24"/>
+    <tile x="0"  y="60" xsiz="24" ysiz="24"/>
+    <tile x="24" y="12" xsiz="80" ysiz="24"/>
+    <tile x="24" y="36" xsiz="24" ysiz="6" />
+    <tile x="24" y="42" xsiz="80" ysiz="18"/>
+    <tile x="24" y="60" xsiz="80" ysiz="18" />
+  </hpbar>
+
+  <nums>
+    <tile x="0"  y="0" xsiz="8" ysiz="12"/>
+    <tile x="8"  y="0" xsiz="8" ysiz="12"/>
+    <tile x="16" y="0" xsiz="8" ysiz="12"/>
+    <tile x="24" y="0" xsiz="8" ysiz="12"/>
+    <tile x="32" y="0" xsiz="8" ysiz="12"/>
+    <tile x="40" y="0" xsiz="8" ysiz="12"/>
+    <tile x="48" y="0" xsiz="8" ysiz="12"/>
+    <tile x="56" y="0" xsiz="8" ysiz="12"/>
+    <tile x="64" y="0" xsiz="8" ysiz="12"/>
+    <tile x="72" y="0" xsiz="8" ysiz="12"/>
+  </nums>
+	 
+</player>

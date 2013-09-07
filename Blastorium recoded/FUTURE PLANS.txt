@@ -1,0 +1,48 @@
+Weapons
+
+Bomb- 
+Destroys blocks. Deals damage. Level increases range and amount. Level 5 destroys multiple blocks (pierces).
+
+->Controlled bomb
+Destroys blocks. 3s to activate. Can be exploded anytime after activated. Levels increase damage and fire range, faster activation. Level 5 destroys multiple blocks. Only one bomb.
+
+Mines
+Plants a mine. Activates and becomes invisible after several secs. Deals damage on contact. Level increases damage, stock and faster fadetime. Level 5 deals less friendly fire damage.
+
+->Statis trap
+Plants a statis trap. Visible mine, activates after several secs. On contact stuns enemy for a long time. Levels increases amount and stun duration. Level 5 activates far faster
+
+Rockets
+Launches rockets at enemy location. After several secs it hits, dealing damage, disabling, and slowing. Hit speed, disable and slow duration increase with level. Level 5 stuns.
+
+->Turret
+Creates a turrent facing your current direction at current position. Activates after several secs (becomes a soft block after that). Fires ministunning and damaging bullets, lasts several secs. Destroys blocks. Has cooldown. Levels increase rate of fire and duration.
+
+Medikit
+Grants passive regeneration and heals you on powerup pick. On activation, makes you invulnerable but slow for several seconds plus nullifies regen until cooldown is over. 
+Levels increase heal, reduces cooldown. Level 5 invulnerability does not slow you.
+
+->Teleport Orb
+Two-use item. First use creates beacon. Second use teleports you to that beacon. Beacon activates after several secs. Has cooldown based on second use. levels reduce cooldown and activation time. Level 5  causes you to deal damage around arrival and departure location (stacks).
+
+Shurikens/throwing items
+Ranged attack. launches projectile. damages on hit+ministun, explodes bombs. Levels increase damage and speed. Level 5 pierces everything. Limited projectile, goes to cooldown once used up all projectiles. Destroys blocks.
+
+->Flamethrower
+Instantly fires a max-range bomb explosion on facing direction. Slows self massively. Levels decrease cooldown and increases damage. Destroys block. Level 5 pierces blocks
+
+Sword/melee combat
+Melee combat. Swings a blade, dealing damage and disabling. Has cooldown. Explodes bomb, destroys blocks. Levels increase damage and reduce cooldown.
+
+->Flame cloak
+Melee dps. Deals heavy DPS on a radius and boosts speed. Deals damage to self on activation. Explodes bombs, destroys blocks. Lasts several seconds on activation, can be deactivated earlier if wanted to. Has cooldown. Levels increase MS boost and DPS. Level 5 has no cooldown.
+
+
+
+
+
+Arena 
+
+Stone - usual
+Forest - looping walls.
+Ice - sliding movement

@@ -1,0 +1,37 @@
+<weapon path="Images/Tilesets/Weapons.png">
+	<GUI>
+		<tile x="0"   y="0" xsiz="32" ysiz="32"/>
+		<tile x="32"  y="0" xsiz="32" ysiz="32"/>
+		<tile x="64"  y="0" xsiz="32" ysiz="32"/>
+		<tile x="96"  y="0" xsiz="32" ysiz="32"/> 
+	</GUI>
+
+  <wpnsprite>
+    <tile x="0"   y="32" xsiz="32" ysiz="32"/>
+    <tile x="32"  y="32" xsiz="32" ysiz="32"/>
+    <tile x="64"  y="32" xsiz="32" ysiz="32"/> 
+  </wpnsprite>
+ 
+  <numbers>
+    <tile x="128"  y="0" xsiz="7" ysiz="7"/>
+    <tile x="135"  y="0" xsiz="7" ysiz="7"/>
+    <tile x="142"  y="0" xsiz="7" ysiz="7"/>
+    <tile x="149"  y="0" xsiz="7" ysiz="7"/>
+    <tile x="156"  y="0" xsiz="7" ysiz="7"/>
+    <tile x="163"  y="0" xsiz="7" ysiz="7"/>
+    <tile x="170"  y="0" xsiz="7" ysiz="7"/>
+    <tile x="177"  y="0" xsiz="7" ysiz="7"/>
+    <tile x="184"  y="0" xsiz="7" ysiz="7"/>
+    <tile x="191"  y="0" xsiz="7" ysiz="7"/>
+    <tile x="198"  y="0" xsiz="7" ysiz="7"/>
+  </numbers>
+
+  <levels>
+    <tile x="128"  y="7" xsiz="15" ysiz="7"/>
+    <tile x="143"  y="7" xsiz="15" ysiz="7"/>
+    <tile x="158"  y="7" xsiz="15" ysiz="7"/>
+    <tile x="173"  y="7" xsiz="15" ysiz="7"/>
+    <tile x="188"  y="7" xsiz="15" ysiz="7"/>
+  </levels>
+	 
+</weapon>

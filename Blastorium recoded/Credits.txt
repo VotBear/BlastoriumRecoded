@@ -1,0 +1,15 @@
+Blastorium:Recoded Beta by Vot1_Bear
+Credits
+
+Code:
+Library by SFML: Simple and Fast Multimedia Library (http://sfml-dev.org/) 
+ 
+Graphics:
+Various tilesets under Creative Commons Attribution from OpenGameArt.org (http://opengameart.org) and from RPG Maker VX Resource Planet (vxresource.wordpress.com)
+
+Backgrounds:
+Unnamed Forest Background on vxresource.wordpress.com
+"Dark City - Concept" by Carpet-Crawler on deviantART 
+"Silent Ruins" by garygill on deviantART 
+"The Frozen Chamber" by BlueRogueVyse on deviantART
+all backgrounds have been edited to fit the game resolution

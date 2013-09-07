@@ -1,0 +1,40 @@
+<select>
+	<imagefile>
+    <img dir="Images/Tilesets/Minimap.png"/>
+    <img dir="Images/Tilesets/Select.png"/> 
+    <img dir="Images/Misc/Misc.png"/>
+  </imagefile>
+  <tiles>
+    <tile x="0"    y="0"   xsiz="320" ysiz="190"/>
+    <tile x="320"  y="0"   xsiz="320" ysiz="190"/>
+    <tile x="0"    y="190" xsiz="320" ysiz="190"/>
+    <tile x="320"  y="190" xsiz="320" ysiz="190"/>
+    <tile x="0"    y="380" xsiz="320" ysiz="190"/>
+    <tile x="320"  y="380" xsiz="320" ysiz="190"/>
+    <tile x="0"    y="570" xsiz="320" ysiz="190"/>
+  </tiles>
+  <tiles>
+    <tile x="0"   y="0"   xsiz="32" ysiz="32"/>
+    <tile x="32"  y="0"   xsiz="32" ysiz="32"/>
+    <tile x="64"  y="0"   xsiz="32" ysiz="32"/>
+    <tile x="96"  y="0"   xsiz="32" ysiz="32"/>
+    <tile x="128" y="0"   xsiz="32" ysiz="32"/>
+    <tile x="160" y="0"   xsiz="32" ysiz="32"/>
+    <tile x="0"   y="32"   xsiz="32" ysiz="32"/>
+    <tile x="32"  y="32"   xsiz="32" ysiz="32"/>
+    <tile x="64"  y="32"   xsiz="32" ysiz="32"/>
+    <tile x="96"  y="32"   xsiz="32" ysiz="32"/>
+    <tile x="128" y="32"   xsiz="32" ysiz="32"/>
+    <tile x="160" y="32"   xsiz="32" ysiz="32"/>
+    <tile x="0"   y="64"   xsiz="64" ysiz="64"/>
+    <tile x="128" y="64"   xsiz="64" ysiz="64"/>
+    <tile x="0"   y="128"  xsiz="48" ysiz="48"/>
+    <tile x="48"  y="128"  xsiz="48" ysiz="48"/>
+    <tile x="96"  y="128"  xsiz="48" ysiz="48"/>
+    <tile x="144" y="128"  xsiz="48" ysiz="48"/>
+  </tiles> 
+  <tiles>
+    <tile x="64"  y="32" xsiz="32" ysiz="32"/>
+    <tile x="0"   y="32" xsiz="64" ysiz="32"/>
+  </tiles>
+</select>

@@ -1,0 +1,18 @@
+<menu>
+	<imagefile path="Images/Misc/Gears.png">
+    <tile x="0"    y="0"   xsiz="448" ysiz="448" xpos="916"  ypos="458" rot="2"/>
+    <tile x="448"  y="0"   xsiz="448" ysiz="448" xpos="-21"  ypos="454" rot="-2"/>
+    
+    <tile x="896"  y="0"   xsiz="224" ysiz="224" xpos="140"  ypos="476" rot="3"/>
+    <tile x="896"  y="224" xsiz="224" ysiz="224" xpos="718"  ypos="471" rot="-3"/>
+    <tile x="0"    y="448" xsiz="224" ysiz="224" xpos="6"    ypos="6"  rot="4"/>
+    <tile x="224"  y="448" xsiz="224" ysiz="224" xpos="850"  ypos="9"  rot="-5"/>
+    <tile x="448"  y="448" xsiz="224" ysiz="224" xpos="-29"  ypos="283" rot="3"/>
+    <tile x="672"  y="448" xsiz="224" ysiz="224" xpos="862"  ypos="271" rot="-2"/>
+
+    <tile x="896"  y="448" xsiz="112" ysiz="112" xpos="79"   ypos="359" rot="-4"/>
+    <tile x="1008" y="448" xsiz="112" ysiz="112" xpos="761"  ypos="353" rot="3"/>
+    <tile x="896"  y="560" xsiz="112" ysiz="112" xpos="123"  ypos="0"   rot="6"/>
+    <tile x="1008" y="560" xsiz="112" ysiz="112" xpos="746"  ypos="-1"  rot="-7"/>
+  </imagefile> 
+</menu>
