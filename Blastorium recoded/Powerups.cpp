@@ -83,11 +83,12 @@ void PowerupManager::GeneratePowerup(){
  
 void PowerupManager::GetPowerup(int id,int powerupno){
 	Globals->GlobalDataManager->TakePowerup(id);
+	Globals->GlobalMediManager->UsePowerup(id);
 	if (powerupno<=2){			//wpn upgrade
 		Globals->GlobalWeaponManager->UpgradeWeapon(id,powerupno);
 	} else if (powerupno==3){	//speed
 		Globals->GlobalPlayerManager->ChgMaxSpeed(id,0.5f);
-		Globals->GlobalPlayerManager->ChgTmpSpeed(id,1.25f,120);
+		Globals->GlobalPlayerManager->ChgTmpSpeed(id,1.15f,120);
 	} else if (powerupno==4){	//heal
 		Globals->GlobalPlayerManager->Damage(id,-60);
 		Globals->GlobalPlayerManager->Debuff(id);

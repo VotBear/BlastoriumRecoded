@@ -205,7 +205,7 @@ void SelectManager::RenderStage (shared_ptr<sf::RenderWindow> Win){
 //Renders the select screen
 void SelectManager::RenderSelect (shared_ptr<sf::RenderWindow> Win){
 	sf::Font Fnt1,Fnt2;
-	sf::Text Titl1,Titl2,Help[6];
+	sf::Text Titl1,Titl2,Help[6],Warnin;
 	Fnt1.loadFromFile("Fonts/bankgthd.ttf");
 	Fnt2.loadFromFile("Fonts/consola.ttf");
 	Titl1.setFont(Fnt1); Titl1.setCharacterSize(23);	
@@ -269,6 +269,7 @@ void SelectManager::RenderSelect (shared_ptr<sf::RenderWindow> Win){
 	}
 	Win->draw(Shade);
 	
+	//draw help
 	Help[0].setString("WASD : move");
 	Help[1].setString("E    : select");
 	Help[2].setString("Q    : cancel");
@@ -286,6 +287,18 @@ void SelectManager::RenderSelect (shared_ptr<sf::RenderWindow> Win){
 			Help[i].setPosition(2				  ,Win->getSize().y-42+14*(i));
 		}
 		Win->draw(Help[i]);
+	}
+
+	//draw warning
+	Warnin.setFont(Fnt1);
+	Warnin.setCharacterSize(13);
+	Warnin.setString("You have to choose at least 1 Block Destroying Weapon ");
+	for(int i=0;i<2;++i) if (Warn[i]>0){
+		Warnin.setOrigin(i*Warnin.getGlobalBounds().width,Warnin.getGlobalBounds().height);
+		Warnin.setPosition(2+i*(Win->getSize().x-4),Win->getSize().y-46);
+		Warnin.setColor(sf::Color(255,0,0,std::min(255,Warn[i]*10)));
+		Win->draw(Warnin);
+		--Warn[i];
 	}
 	return;
 } 
@@ -408,12 +421,18 @@ pair < int, vector<int> > SelectManager::SelectScreen(shared_ptr<sf::RenderWindo
 				else if (Evt.key.code==sf::Keyboard::D)		SelS1=Width*(SelS1/Width) + ((SelS1+1) % Width);
 				else if (Evt.key.code==sf::Keyboard::A)		SelS1=Width*(SelS1/Width) + ((SelS1+Width-1) % Width);
 				else if (Evt.key.code==sf::Keyboard::E)	{ //select
-					if (WpnS1>=3) continue;
-					Ret[0+WpnS1]=SelS1;
-					if (!IsValid[SelS1]) continue;
-					bool Same=false;
-					for (int i=0;i<WpnS1;++i) if (Ret[i]==SelS1) Same=true;
+					if (WpnS1>=3) continue;		if (!IsValid[SelS1]) continue;
+					bool Same=false,Fnd=(SelS1==0);	
+					for (int i=0;i<WpnS1;++i) {
+						if (Ret[i]==SelS1) Same=true;
+						if (Ret[i]==0)     Fnd=true;
+					}
+					if (!Fnd&&WpnS1==2){
+						Warn[0]=75;
+						continue;
+					}
 					if (Same) continue;
+					Ret[0+WpnS1]=SelS1;
 					++WpnS1;
 				} 
 				else if (Evt.key.code==sf::Keyboard::Q)	{ //deselect
@@ -430,10 +449,16 @@ pair < int, vector<int> > SelectManager::SelectScreen(shared_ptr<sf::RenderWindo
 				else if (Evt.key.code==sf::Keyboard::Right)	SelS2=Width*(SelS2/Width) + ((SelS2+1) % Width);
 				else if (Evt.key.code==sf::Keyboard::Left)  SelS2=Width*(SelS2/Width) + ((SelS2+Width-1) % Width);
 				else if (Evt.key.code==sf::Keyboard::RShift)	{ //select
-					if (WpnS2>=3) continue;
-					if (!IsValid[SelS2]) continue;
-					bool Same=false;
-					for (int i=0;i<WpnS2;++i) if (Ret[3+i]==SelS2) Same=true;
+					if (WpnS2>=3) continue;		if (!IsValid[SelS2]) continue;
+					bool Same=false,Fnd=(SelS2==0);	
+					for (int i=0;i<WpnS2;++i) {
+						if (Ret[3+i]==SelS2) Same=true;
+						if (Ret[3+i]==0)     Fnd=true;
+					}
+					if (!Fnd&&WpnS2==2){
+						Warn[1]=75;
+						continue;
+					}
 					if (Same) continue;
 					Ret[3+WpnS2]=SelS2;
 					++WpnS2;

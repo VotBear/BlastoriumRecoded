@@ -6,9 +6,10 @@
 #include "Player.h"
 #include "WeaponManager.h"
 #include "Powerups.h"
-#include "WpnMine.h"
 #include "WpnBomb.h"
+#include "WpnMine.h"
 #include "WpnRocket.h"
+#include "WpnMedi.h"
 
 #include <SFML\Window.hpp>
 #include <SFML\Graphics.hpp>
@@ -26,6 +27,7 @@ GlobalManager::GlobalManager(shared_ptr<sf::RenderWindow> Win){
 	GlobalBombManager	 = make_shared<BombManager>		();
 	GlobalMineManager	 = make_shared<MineManager>		();	
 	GlobalRocketManager	 = make_shared<RocketManager>	(); 
+	GlobalMediManager	 = make_shared<MediManager>		();
 	return;
 }
 

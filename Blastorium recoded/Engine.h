@@ -26,12 +26,7 @@ class Engine {
 		DataManager* MainDataManager;
 		PlayerManager* MainPlayerManager; 
 		WeaponManager* MainWeaponManager;
-		PowerupManager* MainPowerupManager;*/
-		shared_ptr<Level>			 MainLevel;
-		shared_ptr<DataManager>		 MainDataManager;
-		shared_ptr<PlayerManager>	 MainPlayerManager; 
-		shared_ptr<WeaponManager>	 MainWeaponManager;
-		shared_ptr<PowerupManager>	 MainPowerupManager;
+		PowerupManager* MainPowerupManager;*/ 
 		shared_ptr<sf::RenderWindow> MainWindow;
 		
 		shared_ptr<GlobalManager>	 Globals;

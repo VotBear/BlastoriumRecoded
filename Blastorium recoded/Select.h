@@ -27,12 +27,12 @@ class SelectManager{
 			//Returned vector
 		bool IsValid[40],Fin;
 			//checks if weapon id [..] is available based on the prequisites
-		int WpnS1, WpnS2, SelS1, SelS2, StgSel, CurPos;
+		int WpnS1, WpnS2, SelS1, SelS2, StgSel, CurPos, Warn[5];
 			//WpnS = amt of wpn selected
 			//SelS = current selection
 			//StgSel = current selected stage
 			//CurPos = current stage-wheel position (Value range is 100*StgSel)
-		
+			//Warn = weaponselect warning (no softblock destroyer)
 		string GetTitle(int WpnNo);
 		string GetDescr(int WpnNo,int Done);
 		void CheckValid();

@@ -83,8 +83,7 @@ void DataManager::UpdateData(){
 //Finishes match, showing statistics and stuff number with animation (which is why it's long, really. fuck animation)
 //Will later call interface->Endgamechoice to retrieve input.
 //returns int : Play again (2), Main Menu(1) or exit (0)
-sf::Texture DataManager::FinishMatch(int id,shared_ptr<sf::RenderWindow> MainWindow){
-	puts("Test 2.5");
+sf::Texture DataManager::FinishMatch(int id,shared_ptr<sf::RenderWindow> MainWindow){ 
 	sf::Font Fnt;
 	sf::RenderTexture TempBg;
 	sf::Texture Bg;

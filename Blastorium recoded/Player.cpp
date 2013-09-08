@@ -23,11 +23,18 @@ Player::Player(int colpos,int rowpos,int color){
 	col=color;
 	max_hp=now_hp=tmp_hp=500; 
 	row_pos=rowpos; col_pos=colpos;
-	disabled=0;
 	cur_row=nex_row=(int)rowpos/32; cur_col=nex_col=(int)(colpos-160)/32; 
+
+	disabled=0;
 	stunned=0;
+	invul=0;
+	octimer=0;
+
+	overclock=false;
+
 	max_move_speed=move_speed=4.5; //max is 10
 	speed_modifier.clear();
+	effect_list.clear();
 }
 
 Player::~Player(){
@@ -185,19 +192,47 @@ void PlayerManager::RenderPlayer(){	//renders all player-related stuff at once
 
 		HPBarList.DrawTile(5,xpos,6,flip,1,MainWindow);
 		HPBarList.DrawTile(6,xpos,6,flip,1,MainWindow);
+
 		//draw the numbers
 		DrawNum(i);
 
-		PlayerColList.DrawTile(PlayerList[i].col,PlayerList[i].col_pos,PlayerList[i].row_pos,MainWindow);
-		PlayerExpList.DrawTile(2*i,PlayerList[i].col_pos,PlayerList[i].row_pos,MainWindow);
+		//draw player
+		PlayerSprList.DrawTile(PlayerList[i].col,PlayerList[i].col_pos,PlayerList[i].row_pos,MainWindow);
+		PlayerSprList.DrawTile(4+2*i,PlayerList[i].col_pos,PlayerList[i].row_pos,MainWindow);
+
+		if (PlayerList[i].invul>0){ 
+			PlayerSprList.DrawTile(14+((PlayerList[i].invul/2)%4),PlayerList[i].col_pos,PlayerList[i].row_pos,MainWindow);
+			--PlayerList[i].invul;
+		}
+
+		if (PlayerList[i].overclock){
+			PlayerSprList.DrawTile(18+(PlayerList[i].octimer),PlayerList[i].col_pos,PlayerList[i].row_pos,MainWindow);
+			PlayerList[i].octimer=(PlayerList[i].octimer+1)%4;
+		}
+
+		//draw special effects
+		int ite=0;
+		while(ite<PlayerList[i].effect_list.size()){
+			if (PlayerList[i].effect_list[ite].first==0) {
+				PlayerSprList.DrawTile(14-((PlayerList[i].effect_list[ite].second+1)/2),PlayerList[i].col_pos,PlayerList[i].row_pos,MainWindow);
+			}
+			--PlayerList[i].effect_list[ite].second;
+			if (PlayerList[i].effect_list[ite].second==0) PlayerList[i].effect_list.erase(PlayerList[i].effect_list.begin()+ite);
+			else ++ite;
+		}
 	}
 }
 
 void PlayerManager::Damage(int id,int amt){
 	if (amt>0){
+		if (PlayerList[id].invul>0) return;
 		int tamt=amt;
 		if (amt>PlayerList[id].now_hp) tamt=PlayerList[id].now_hp;
 		Globals->GlobalDataManager->DealDamage(id,tamt);
+		
+	}
+	if (amt<0){
+		PlayerList[id].effect_list.push_back(std::make_pair(0,12));
 	}
 	PlayerList[id].now_hp-=amt;
 	if (PlayerList[id].now_hp>PlayerList[id].max_hp) PlayerList[id].now_hp=PlayerList[id].max_hp;
@@ -205,10 +240,16 @@ void PlayerManager::Damage(int id,int amt){
 }
 
 void PlayerManager::Disable(int id,int amt){
+	if (PlayerList[id].invul>0) return;
 	PlayerList[id].disabled=std::max(PlayerList[id].disabled,amt);
 }
 
+void PlayerManager::Invul(int id,int amt){
+	PlayerList[id].invul=std::max(PlayerList[id].invul,amt);
+}
+
 void PlayerManager::Stun(int id,int amt){
+	if (PlayerList[id].invul>0) return;
 	PlayerList[id].stunned=std::max(PlayerList[id].stunned,amt);
 }
 
@@ -219,6 +260,7 @@ void PlayerManager::ChgMaxSpeed(int id,double amt){
 }
 
 void PlayerManager::ChgTmpSpeed(int id,double mul,int dur){
+	if (PlayerList[id].invul>0&&mul<1.0f) return;
 	if (dur>0) PlayerList[id].speed_modifier.push_back(make_pair(mul,dur));
 }
 
@@ -271,8 +313,7 @@ void PlayerManager::LoadPlayer(){
 	Data.parse<parse_no_data_nodes>(&XMLData[0]);
 
 	xml_node<>* root=Data.first_node();
-	xml_node<>* colors=root->first_node("colors"); 
-	xml_node<>* express=root->first_node("eyes"); 
+	xml_node<>* colors=root->first_node("colors");  
 	xml_node<>* hpbar=root->first_node("hpbar"); 
 	xml_node<>* tiles;
 	//get texture dir
@@ -292,19 +333,8 @@ void PlayerManager::LoadPlayer(){
 		y=atoi(tiles->first_attribute("y")->value());
 		xsiz=atoi(tiles->first_attribute("xsiz")->value());
 		ysiz=atoi(tiles->first_attribute("ysiz")->value());
-		PlayerColList.AddTile(PlayerTextureManager.GetTexture(0),x,y,xsiz,ysiz); 
-		tiles=tiles->next_sibling();
-	}
-	 
-	tiles = express->first_node("tile");
-	while(tiles){
-		int x,y,xsiz,ysiz;
-		x=atoi(tiles->first_attribute("x")->value());
-		y=atoi(tiles->first_attribute("y")->value());
-		xsiz=atoi(tiles->first_attribute("xsiz")->value());
-		ysiz=atoi(tiles->first_attribute("ysiz")->value());
-		PlayerExpList.AddTile(PlayerTextureManager.GetTexture(0),x,y,xsiz,ysiz); 
-		tiles=tiles->next_sibling();
+		PlayerSprList.AddTile(PlayerTextureManager.GetTexture(0),x,y,xsiz,ysiz); 
+		tiles=tiles->next_sibling(); 
 	}
 	 
 	tiles = hpbar->first_node("tile");

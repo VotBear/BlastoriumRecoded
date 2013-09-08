@@ -35,6 +35,7 @@ void WeaponManager::Init(){
 	Globals->GlobalBombManager->Construct(Globals);
 	Globals->GlobalMineManager->Construct(Globals);
 	Globals->GlobalRocketManager->Construct(Globals); 
+	Globals->GlobalMediManager->Construct(Globals);
 	return;
 }
 
@@ -44,23 +45,34 @@ void WeaponManager::SetWeapon(int id,int w1,int w2,int w3){
 	PlayerEquip[id][1]=w2; NowLevel[id][1]=1; MaxLevel[id][1]=5;
 	PlayerEquip[id][2]=w3; NowLevel[id][2]=1; MaxLevel[id][2]=5;
 	PlayerActiveWeapon[id]=0;
+	
+	if (w1==4) Globals->GlobalMediManager->HasMedikit(id,0);
+	if (w2==4) Globals->GlobalMediManager->HasMedikit(id,1);
+	if (w3==4) Globals->GlobalMediManager->HasMedikit(id,2);
+
 	return;
 }
 
 void WeaponManager::UseWeapon(int id){
 	if (Globals->GlobalPlayerManager->IsDisabled(id)) return;
-	int wpn_no=PlayerActiveWeapon[id]; 
+	
 	pair<int,int> Pos=Globals->GlobalPlayerManager->GetPosition(id);
-	int now=PlayerEquip[id][wpn_no], rowpos=Pos.first, colpos=Pos.second;  
-	if (now==1){
-		//use bomb; 
+	
+	int wpn_no = PlayerActiveWeapon[id]; 
+	int now	   = PlayerEquip[id][wpn_no], rowpos = Pos.first, colpos = Pos.second;  
+	
+	if (now==1) {	 	 //use bomb; 
 		Globals->GlobalBombManager->PutBomb(id,NowLevel[id][wpn_no],rowpos,colpos);
-	} else if (now==2){
-		//use mine
+	
+	} else if (now==2) { //use mine
 		Globals->GlobalMineManager->PutMine(id,NowLevel[id][wpn_no],rowpos,colpos);
-	} else {
-		//use rocket
+	
+	} else if (now==3) { //use rocket
 		Globals->GlobalRocketManager->UseRocket(id,NowLevel[id][wpn_no]);
+	
+	} else if (now==4) { //use medikit
+		Globals->GlobalMediManager->UseMedikit(id,NowLevel[id][wpn_no]);
+	
 	}
 	return;
 }
@@ -79,6 +91,7 @@ void WeaponManager::CalculateLogic(){
 	Globals->GlobalRocketManager->RocketLogic();
 	Globals->GlobalMineManager->MineLogic();
 	Globals->GlobalBombManager->BombLogic(); 
+	Globals->GlobalMediManager->MediLogic();
 	//andeverythingelse
 	return;
 }
@@ -87,7 +100,10 @@ void WeaponManager::RenderWeapons(){
 	Globals->GlobalMineManager->RenderMine();
 	Globals->GlobalRocketManager->RenderRocket();
 	Globals->GlobalBombManager->RenderBomb();
+
+	//render the icons in the player equip GUI
 	for (int id=0;id<2;++id){
+		//numbers
 		int xpos,ipos,ypos,xnum,xlvl; //xpos=x, ypos=y, ipos=second x for icon, etc
 		double scl;
 		if (id==0)	{ 
@@ -98,6 +114,7 @@ void WeaponManager::RenderWeapons(){
 			xnum=ipos+2;  	xlvl=ipos+17;
 		} 
 		ypos=24;
+
 		for (int ite=0;ite<3;++ite){
 			//draw frame
 			if (PlayerActiveWeapon[id]==ite) 
@@ -107,21 +124,21 @@ void WeaponManager::RenderWeapons(){
 
 			//draw icon
 			int temp;
-			IconList.DrawTile(PlayerEquip[id][ite]-1,xpos,ypos,scl,1,MainWindow);
-			LevelList.DrawTile(NowLevel[id][ite]-1,xlvl,ypos+22,MainWindow);
+			IconList .DrawTile(PlayerEquip[id][ite]-1 , xpos , ypos	   , scl , 1 , MainWindow);
+			LevelList.DrawTile(NowLevel[id][ite]-1    , xlvl , ypos+22 , MainWindow);
 
-			if (PlayerEquip[id][ite]==1) 
-				temp=Globals->GlobalBombManager->GetAvailability(id,NowLevel[id][ite]);
-			
-			else if (PlayerEquip[id][ite]==2) 
-				temp=Globals->GlobalMineManager->GetAvailability(id,NowLevel[id][ite]);
-			
-			else if (PlayerEquip[id][ite]==3) 
-				temp=Globals->GlobalRocketManager->GetAvailability(id,NowLevel[id][ite]); 
-			
+			if (PlayerEquip[id][ite]==1)      temp=Globals->GlobalBombManager->GetAvailability(id,NowLevel[id][ite]);
+			else if (PlayerEquip[id][ite]==2) temp=Globals->GlobalMineManager->GetAvailability(id,NowLevel[id][ite]);
+			else if (PlayerEquip[id][ite]==3) temp=Globals->GlobalRocketManager->GetAvailability(id,NowLevel[id][ite]); 
+			else if (PlayerEquip[id][ite]==4) temp=Globals->GlobalMediManager->GetAvailability(id,NowLevel[id][ite]);
+
+			//draw numbers
 			if (temp>=0) {
-				if (temp>=10&&id==1) NumberList.DrawTile(temp,xnum+2,ypos+22,MainWindow);
-				else NumberList.DrawTile(temp,xnum,ypos+22,MainWindow);
+				if (temp>=10){
+					NumberList.DrawTile(temp/10		  ,	xnum-4+4*id	,	ypos+22	, MainWindow);
+					NumberList.DrawTile((temp-1)%10+1 ,	xnum+4*id	,	ypos+22	, MainWindow);
+				} 
+				else NumberList.DrawTile(temp ,	xnum , ypos+22 , MainWindow);
 			}
 
 			//draw blur/disable 
@@ -133,7 +150,8 @@ void WeaponManager::RenderWeapons(){
 				bool can;
 					 if (PlayerEquip[id][ite]==1) can=Globals->GlobalBombManager->IsAvailable(id,NowLevel[id][ite]);
 				else if (PlayerEquip[id][ite]==2) can=Globals->GlobalMineManager->IsAvailable(id,NowLevel[id][ite]);
-				else if (PlayerEquip[id][ite]==3) can=Globals->GlobalRocketManager->IsAvailable(id,NowLevel[id][ite]); 
+				else if (PlayerEquip[id][ite]==3) can=Globals->GlobalRocketManager->IsAvailable(id,NowLevel[id][ite]);
+				else if (PlayerEquip[id][ite]==4) can=Globals->GlobalMediManager->IsAvailable(id,NowLevel[id][ite]);
 				if (!can) FrameList.DrawTile(2,xpos,ypos,scl,1,MainWindow);
 			}
 			ypos+=32;

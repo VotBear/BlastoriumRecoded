@@ -23,7 +23,6 @@ class GlobalManager;
 
 class WeaponManager{
 	private:
-		int PlayerEquip[5][5],NowLevel[5][5],MaxLevel[5][5];
 		int PlayerActiveWeapon[5];
 		shared_ptr<GlobalManager>	 Globals;
 		shared_ptr<sf::RenderWindow> MainWindow;
@@ -33,6 +32,7 @@ class WeaponManager{
 		TextureManager WeaponTextureManager;
 		Tilelist FrameList,IconList,NumberList,LevelList;
 	public: 
+		int PlayerEquip[5][5],NowLevel[5][5],MaxLevel[5][5];
 		WeaponManager();
 		~WeaponManager();
 		void Construct(shared_ptr<GlobalManager> Glo);

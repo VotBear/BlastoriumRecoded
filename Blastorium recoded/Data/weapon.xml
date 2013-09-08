@@ -9,7 +9,8 @@
   <wpnsprite>
     <tile x="0"   y="32" xsiz="32" ysiz="32"/>
     <tile x="32"  y="32" xsiz="32" ysiz="32"/>
-    <tile x="64"  y="32" xsiz="32" ysiz="32"/> 
+    <tile x="64"  y="32" xsiz="32" ysiz="32"/>
+    <tile x="96"  y="32" xsiz="32" ysiz="32"/>
   </wpnsprite>
  
   <numbers>

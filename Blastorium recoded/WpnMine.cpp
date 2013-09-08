@@ -86,7 +86,7 @@ void MineManager::TriggerMine(int row,int col){
 		
 			if (row==nrow&&col==ncol) {
 				int damage=50 + MineMap[nrow][ncol].level*10;
-				if (id==MineMap[nrow][ncol].owner && MineMap[nrow][ncol].level==5) damage/=2;
+				if (id==MineMap[nrow][ncol].owner && MineMap[nrow][ncol].level==5) damage/=4;
 				Globals->GlobalPlayerManager->Damage(id,damage);  
 				Globals->GlobalDataManager->UpdateWeapon(2,1);
 			}

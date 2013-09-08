@@ -7,9 +7,10 @@
 #include "Player.h"
 #include "WeaponManager.h"
 #include "Powerups.h"
-#include "WpnMine.h"
 #include "WpnBomb.h"
+#include "WpnMine.h"
 #include "WpnRocket.h"
+#include "WpnMedi.h"
 
 #include <SFML\Window.hpp>
 #include <SFML\Graphics.hpp>
@@ -30,6 +31,7 @@ class GlobalManager{
 		shared_ptr<BombManager>			GlobalBombManager	;
 		shared_ptr<MineManager>			GlobalMineManager	;
 		shared_ptr<RocketManager>		GlobalRocketManager	; 
+		shared_ptr<MediManager>			GlobalMediManager	;
 
 		GlobalManager(shared_ptr<sf::RenderWindow> Win);
 

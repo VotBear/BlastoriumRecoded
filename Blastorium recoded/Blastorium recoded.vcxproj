@@ -83,6 +83,7 @@
     <ClCompile Include="Tilelist.cpp" />
     <ClCompile Include="WeaponManager.cpp" />
     <ClCompile Include="WpnBomb.cpp" />
+    <ClCompile Include="WpnMedi.cpp" />
     <ClCompile Include="WpnMine.cpp" />
     <ClCompile Include="WpnRocket.cpp" />
   </ItemGroup>
@@ -100,6 +101,7 @@
     <ClInclude Include="WpnBomb.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="TextureManager.h" />
+    <ClInclude Include="WpnMedi.h" />
     <ClInclude Include="WpnMine.h" />
     <ClInclude Include="WpnRocket.h" />
   </ItemGroup>

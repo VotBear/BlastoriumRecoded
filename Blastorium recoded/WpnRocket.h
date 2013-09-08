@@ -2,7 +2,9 @@
 #define _WPNROCKET_H
 
 #include "SFML\Graphics.hpp"
- 
+
+#include <vector>
+
 #include "TextureManager.h"
 #include "Tilelist.h"
 #include "Level.h"
@@ -10,27 +12,44 @@
 #include "WpnBomb.h"
 #include "WpnMine.h"
 
-#include <vector>
+#define MAP_LENGTH 17
+#define MAP_HEIGHT 15
+#define INI 360		//12 seconds
+#define DUR 30		//1 second
+#define DMG 90
+#define STN 30		//1 second
+#define SLW 60		//2 seconds
+#define DIS 60		//2 seconds
+#define CD_ 180		//6 seconds
+#define CDD 15		//0.5 second a level
+#define DL_ 57		//1.9 seconds 
+#define DLD 3		//0.1 seconds
 
+using namespace rapidxml;
 using namespace std;
 
 //////////////////////////////////////////////////////////////////////
-//ROCKETS
+//ROCKETS (ID 3)
 //
 //SECONDARY OFFENSIVE WEAPON TO HINDER AND/OR DISABLE ENEMIES
 //WHEN USED, LAUNCHES A ROCKET AT CURRENT ENEMY POSITION.
-//DEALS IMMEDIATE DAMAGE AFTER SEVERAL SECS DELAY. EXPLOSION JUST FOR VISUALS
-//SIGNIFICANTLY DISABLES TARGET ON HIT
+//DEALS IMMEDIATE EFFECT AFTER SEVERAL SECS DELAY. EXPLOSION JUST FOR VISUALS
+//SIGNIFICANTLY DISABLES AND SLOWS TARGET ON HIT
 //HAS A COOLDOWN.
 //
 //WITH BOMB: ROCKETS WILL PREMATURELY TRIGGER BOMBS
-//WITH RocketS: ROCKETS WILL PREMATURELY TRIGGER RocketS
+//WITH MINES: ROCKETS WILL PREMATURELY TRIGGER MINES
 //
 //INCREASING LEVELS REDUCES COOLDOWN AND HIT DELAY
-//AT LEVEL 5, ROCKETS HAVE 1-TILE EXPLOSION SPREAD RADIUS
-//COOLDOWN(s)  = 5.50 - 0.50*(LEVEL)
-//HIT DELAY(s) = 2.75 - 0.25*(LEVEL)
-//DAMAGE	   = 75	(LEVEL 5 SPREAD DEALS 50)
+//AT LEVEL 5, ROCKETS STUNS
+//INITIAL CD(s)= 12.00
+//COOLDOWN(s)  = 6.00 - 0.50*(LEVEL)
+//HIT DELAY(s) = 1.90 - 0.10*(LEVEL)
+//DISABLE(s)   = 2.00 + 0.5*(LEVEL)
+//SLOW(s)	   = 2.00 + 0.5*(LEVEL)
+//SLOW(magn)   = 60%
+//STUN(lv5)	   = 1.00 s
+//DAMAGE	   = 90
 //////////////////////////////////////////////////////////////////////
 
 //forward reference to globals
@@ -62,7 +81,7 @@ class RocketManager{
 				Rocket(int r,int c,int lvl){
 					coor=make_pair(r,c);
 					level=lvl;
-					timer=int((30*(11-level))/4);
+					timer=int(DL_ - DLD*lvl);
 				}
 			};
 		//contains the cooldown each player has remaining (in ticks)
