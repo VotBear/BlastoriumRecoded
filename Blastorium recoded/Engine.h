@@ -1,6 +1,7 @@
 #ifndef _ENGINE_H
 #define _ENGINE_H
  
+#include <memory>
 #include <vector> 
 #include "Level.h"
 #include "Player.h"
@@ -8,9 +9,9 @@
 #include "Powerups.h"
 #include "Data.h"
 
-#include <SFML\Window.hpp>
-#include <SFML\Graphics.hpp>
-#include <SFML\Audio.hpp>
+#include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 using namespace std;
 

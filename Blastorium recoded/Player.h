@@ -7,9 +7,9 @@
 #include "TextureManager.h"
 #include "Tilelist.h"
 
-#include <SFML\Window.hpp>
-#include <SFML\Graphics.hpp>
-#include <SFML\Audio.hpp>
+#include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 using namespace std; 
 

@@ -1,6 +1,6 @@
 #include "Tilelist.h"
 
-#include <SFML\Graphics.hpp>
+#include <SFML/Graphics.hpp>
 #include <vector>
 
 using namespace std;

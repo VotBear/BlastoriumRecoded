@@ -1,7 +1,7 @@
 #ifndef _WPNMEDI_H
 #define _WPNMEDI_H
 
-#include "SFML\Graphics.hpp"
+#include "SFML/Graphics.hpp"
  
 #include "TextureManager.h"
 #include "Tilelist.h"

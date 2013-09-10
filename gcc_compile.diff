@@ -1,0 +1,683 @@
+diff --git a/Blastorium recoded/Data.cpp b/Blastorium recoded/Data.cpp
+index cd1b458..ec214ee 100644
+--- a/Blastorium recoded/Data.cpp	
++++ b/Blastorium recoded/Data.cpp	
+@@ -8,9 +8,9 @@
+  
+ #include "Interface.h" 
+ 
+-#include <SFML\Window.hpp>
+-#include <SFML\Graphics.hpp>
+-#include <SFML\Audio.hpp>
++#include <SFML/Window.hpp>
++#include <SFML/Graphics.hpp>
++#include <SFML/Audio.hpp>
+ 
+ using namespace std;
+  
+@@ -89,7 +89,7 @@ sf::Texture DataManager::FinishMatch(int id,shared_ptr<sf::RenderWindow> MainWin
+ 	sf::Texture Bg;
+ 	sf::Text Title,Txt,Num1,Num2;
+ 	sf::Sprite Spr;
+-	char Number1[20],Number2[20];
++	std::string Number1, Number2;
+ 
+ 	Fnt.loadFromFile("Fonts/bankgthd.ttf");
+ 	TempBg.create(MainWindow->getSize().x,MainWindow->getSize().y);
+@@ -130,23 +130,23 @@ sf::Texture DataManager::FinishMatch(int id,shared_ptr<sf::RenderWindow> MainWin
+ 				return Bg;
+ 
+ 			} else if (evt.type==sf::Event::KeyReleased||evt.type==sf::Event::MouseButtonReleased) {	 
+-				if (ite<=3){ 
++				if (ite<=3){  
+ 					for (int i=ite;i<=3;++i){
+ 						if (i==0) {
+-							Txt.setString("Damage Received");	
+-							itoa(TDamageDealt[0],Number1,10); 
+-							itoa(TDamageDealt[1],Number2,10); 
++							Txt.setString("Damage Received");
++							Number1 = to_string(TDamageDealt[0]);
++							Number2 = to_string(TDamageDealt[1]);
+ 						} else if (i==1)	{
+-							Txt.setString("Powerups Taken");	
+-							itoa(TPowerupsTaken[0],Number1,10); 
+-							itoa(TPowerupsTaken[1],Number2,10); 
++							Txt.setString("Powerups Taken");
++							Number1 = to_string(TPowerupsTaken[0]);
++							Number2 = to_string(TPowerupsTaken[1]);
+ 						} else if (i==2)	{
+-							Txt.setString("Weapons Used");	
+-							itoa(TWeaponsUsed[0],Number1,10); 
+-							itoa(TWeaponsUsed[1],Number2,10); 
++							Txt.setString("Weapons Used");
++							Number1 = to_string(TWeaponsUsed[0]);
++							Number2 = to_string(TWeaponsUsed[1]);
+ 						} else if (i==3){
+ 							string tmp="Blocks Destroyed  :  ";
+-							itoa(TBlocksDestroyed,Number1,10);
++							Number1 = to_string(TBlocksDestroyed);
+ 							tmp+=Number1;
+ 							Txt.setString(tmp);
+ 							Number1[0]='\0';
+@@ -168,20 +168,20 @@ sf::Texture DataManager::FinishMatch(int id,shared_ptr<sf::RenderWindow> MainWin
+ 		timecntr=(timecntr+1)%60; 
+ 		if (ite<=3) {
+ 			if (ite==0) {
+-				Txt.setString("Damage Received");	
+-				itoa((TDamageDealt[0]*timecntr)/30,Number1,10); 
+-				itoa((TDamageDealt[1]*timecntr)/30,Number2,10); 
++				Txt.setString("Damage Received");
++				Number1 = to_string((TDamageDealt[0]*timecntr)/30);
++				Number2 = to_string((TDamageDealt[1]*timecntr)/30);
+ 			} else if (ite==1)	{
+-				Txt.setString("Powerups Taken");	
+-				itoa((TPowerupsTaken[0]*timecntr)/30,Number1,10); 
+-				itoa((TPowerupsTaken[1]*timecntr)/30,Number2,10); 
++				Txt.setString("Powerups Taken");
++				Number1 = to_string((TPowerupsTaken[0]*timecntr)/30);
++				Number2 = to_string((TPowerupsTaken[1]*timecntr)/30);
+ 			} else if (ite==2)	{
+ 				Txt.setString("Weapons Used");	
+-				itoa((TWeaponsUsed[0]*timecntr)/30,Number1,10); 
+-				itoa((TWeaponsUsed[1]*timecntr)/30,Number2,10); 
++				Number1 = to_string((TWeaponsUsed[0]*timecntr)/30);
++				Number2 = to_string((TWeaponsUsed[1]*timecntr)/30);
+ 			} else if (ite==3){
+ 				string tmp="Blocks Destroyed  :  ";
+-				itoa((TBlocksDestroyed*timecntr)/30,Number1,10);
++				Number1 = to_string((TBlocksDestroyed*timecntr)/30);
+ 				tmp+=Number1;
+ 				Txt.setString(tmp);
+ 				Number1[0]='\0';
+@@ -243,4 +243,4 @@ void DataManager::PrintData(){
+ 		//printf("weapon %d: %lld\n",i,MainData.WeaponsStat[i]);
+ 	}
+ 	return;
+-}
+\ No newline at end of file
++}
+diff --git a/Blastorium recoded/Data.h b/Blastorium recoded/Data.h
+index 7420539..f666dd0 100644
+--- a/Blastorium recoded/Data.h	
++++ b/Blastorium recoded/Data.h	
+@@ -1,6 +1,7 @@
+ #ifndef _DATA_H
+ #define _DATA_H
+  
++#include <memory>
+ #include <vector> 
+ #include <iostream>
+ #include <fstream>
+@@ -11,9 +12,9 @@
+ //#include "Player.h" 
+ //#include "WeaponManager.h" 
+ 
+-#include <SFML\Window.hpp>
+-#include <SFML\Graphics.hpp>
+-#include <SFML\Audio.hpp>
++#include <SFML/Window.hpp>
++#include <SFML/Graphics.hpp>
++#include <SFML/Audio.hpp>
+ 
+ using namespace std;
+ 
+diff --git a/Blastorium recoded/Engine.cpp b/Blastorium recoded/Engine.cpp
+index 2774742..ec9df98 100644
+--- a/Blastorium recoded/Engine.cpp	
++++ b/Blastorium recoded/Engine.cpp	
+@@ -7,9 +7,9 @@
+ #include "Interface.h"
+ #include "Data.h"
+ 
+-#include "SFML\Window.hpp"
+-#include "SFML\Graphics.hpp"
+-#include "SFML\Audio.hpp"
++#include "SFML/Window.hpp"
++#include "SFML/Graphics.hpp"
++#include "SFML/Audio.hpp"
+ 
+ #include <stdlib.h>
+ 
+diff --git a/Blastorium recoded/Engine.h b/Blastorium recoded/Engine.h
+index c95fe0a..bd7e731 100644
+--- a/Blastorium recoded/Engine.h	
++++ b/Blastorium recoded/Engine.h	
+@@ -1,6 +1,7 @@
+ #ifndef _ENGINE_H
+ #define _ENGINE_H
+  
++#include <memory>
+ #include <vector> 
+ #include "Level.h"
+ #include "Player.h"
+@@ -8,9 +9,9 @@
+ #include "Powerups.h"
+ #include "Data.h"
+ 
+-#include <SFML\Window.hpp>
+-#include <SFML\Graphics.hpp>
+-#include <SFML\Audio.hpp>
++#include <SFML/Window.hpp>
++#include <SFML/Graphics.hpp>
++#include <SFML/Audio.hpp>
+ 
+ using namespace std;
+ 
+diff --git a/Blastorium recoded/Globals.cpp b/Blastorium recoded/Globals.cpp
+index 8c42035..85fdc8c 100644
+--- a/Blastorium recoded/Globals.cpp	
++++ b/Blastorium recoded/Globals.cpp	
+@@ -11,9 +11,9 @@
+ #include "WpnRocket.h"
+ #include "WpnMedi.h"
+ 
+-#include <SFML\Window.hpp>
+-#include <SFML\Graphics.hpp>
+-#include <SFML\Audio.hpp>
++#include <SFML/Window.hpp>
++#include <SFML/Graphics.hpp>
++#include <SFML/Audio.hpp>
+ 
+ using namespace std;
+ 
+@@ -33,4 +33,4 @@ GlobalManager::GlobalManager(shared_ptr<sf::RenderWindow> Win){
+ 
+ GlobalManager::~GlobalManager(){
+ 	return;
+-}
+\ No newline at end of file
++}
+diff --git a/Blastorium recoded/Globals.h b/Blastorium recoded/Globals.h
+index d918b6b..54c15c7 100644
+--- a/Blastorium recoded/Globals.h	
++++ b/Blastorium recoded/Globals.h	
+@@ -12,9 +12,9 @@
+ #include "WpnRocket.h"
+ #include "WpnMedi.h"
+ 
+-#include <SFML\Window.hpp>
+-#include <SFML\Graphics.hpp>
+-#include <SFML\Audio.hpp>
++#include <SFML/Window.hpp>
++#include <SFML/Graphics.hpp>
++#include <SFML/Audio.hpp>
+ 
+ using namespace std; 
+ 
+@@ -39,4 +39,4 @@ class GlobalManager{
+ 		
+ };
+ 
+-#endif
+\ No newline at end of file
++#endif
+diff --git a/Blastorium recoded/Interface.cpp b/Blastorium recoded/Interface.cpp
+index 2cedc83..4278692 100644
+--- a/Blastorium recoded/Interface.cpp	
++++ b/Blastorium recoded/Interface.cpp	
+@@ -11,9 +11,9 @@
+ #include "Data.h"
+ #include "rapidxml.hpp"
+ 
+-#include <SFML\Window.hpp>
+-#include <SFML\Graphics.hpp>
+-#include <SFML\Audio.hpp>
++#include <SFML/Window.hpp>
++#include <SFML/Graphics.hpp>
++#include <SFML/Audio.hpp>
+ 
+ using namespace std;
+ using namespace rapidxml;
+diff --git a/Blastorium recoded/Interface.h b/Blastorium recoded/Interface.h
+index 6f675e7..c07ccfd 100644
+--- a/Blastorium recoded/Interface.h	
++++ b/Blastorium recoded/Interface.h	
+@@ -5,9 +5,9 @@
+ #include "Tilelist.h"
+ #include "TextureManager.h"
+ 
+-#include <SFML\Window.hpp>
+-#include <SFML\Graphics.hpp>
+-#include <SFML\Audio.hpp>
++#include <SFML/Window.hpp>
++#include <SFML/Graphics.hpp>
++#include <SFML/Audio.hpp>
+ 
+ using namespace std;
+ 
+diff --git a/Blastorium recoded/Level.cpp b/Blastorium recoded/Level.cpp
+index f65b294..3f8f22d 100644
+--- a/Blastorium recoded/Level.cpp	
++++ b/Blastorium recoded/Level.cpp	
+@@ -11,9 +11,9 @@
+ 
+ #include "rapidxml.hpp"
+ 
+-#include "SFML\Window.hpp"
+-#include "SFML\Graphics.hpp"
+-#include "SFML\Audio.hpp"
++#include "SFML/Window.hpp"
++#include "SFML/Graphics.hpp"
++#include "SFML/Audio.hpp"
+ 
+ using namespace std;
+ using namespace rapidxml;
+diff --git a/Blastorium recoded/Level.h b/Blastorium recoded/Level.h
+index b24df66..1f12ff7 100644
+--- a/Blastorium recoded/Level.h	
++++ b/Blastorium recoded/Level.h	
+@@ -1,6 +1,7 @@
+ #ifndef _LEVEL_H
+ #define _LEVEL_H
+  
++#include <memory>
+ #include <vector>
+ #include <string>
+ #include <fstream>
+@@ -11,9 +12,9 @@
+ 
+ #include "rapidxml.hpp"
+ 
+-#include <SFML\Window.hpp>
+-#include <SFML\Graphics.hpp>
+-#include <SFML\Audio.hpp>
++#include <SFML/Window.hpp>
++#include <SFML/Graphics.hpp>
++#include <SFML/Audio.hpp>
+ 
+ using namespace std;
+ 
+@@ -62,4 +63,4 @@ class Level{
+ 		std::pair<int,int> GetStartPos();
+ };
+ 
+-#endif
+\ No newline at end of file
++#endif
+diff --git a/Blastorium recoded/Player.cpp b/Blastorium recoded/Player.cpp
+index cf7fe45..071e31a 100644
+--- a/Blastorium recoded/Player.cpp	
++++ b/Blastorium recoded/Player.cpp	
+@@ -7,7 +7,7 @@
+ 
+ #include "Globals.h"
+ 
+-#include "SFML\Graphics.hpp"
++#include "SFML/Graphics.hpp"
+ 
+ #include "rapidxml.hpp"
+ 
+diff --git a/Blastorium recoded/Player.h b/Blastorium recoded/Player.h
+index c463b13..28f4769 100644
+--- a/Blastorium recoded/Player.h	
++++ b/Blastorium recoded/Player.h	
+@@ -7,9 +7,9 @@
+ #include "TextureManager.h"
+ #include "Tilelist.h"
+ 
+-#include <SFML\Window.hpp>
+-#include <SFML\Graphics.hpp>
+-#include <SFML\Audio.hpp>
++#include <SFML/Window.hpp>
++#include <SFML/Graphics.hpp>
++#include <SFML/Audio.hpp>
+ 
+ using namespace std; 
+ 
+@@ -123,4 +123,4 @@ class PlayerManager{
+ 		bool IsDead(int id);					
+ };
+ 
+-#endif
+\ No newline at end of file
++#endif
+diff --git a/Blastorium recoded/Powerups.cpp b/Blastorium recoded/Powerups.cpp
+index fdbb75e..712bcd6 100644
+--- a/Blastorium recoded/Powerups.cpp	
++++ b/Blastorium recoded/Powerups.cpp	
+@@ -13,9 +13,9 @@
+ 
+ #include "rapidxml.hpp"
+ 
+-#include <SFML\Window.hpp>
+-#include <SFML\Graphics.hpp>
+-#include <SFML\Audio.hpp>
++#include <SFML/Window.hpp>
++#include <SFML/Graphics.hpp>
++#include <SFML/Audio.hpp>
+ 
+ using namespace std;
+ using namespace rapidxml; 
+diff --git a/Blastorium recoded/Powerups.h b/Blastorium recoded/Powerups.h
+index 732fe0b..ef986d0 100644
+--- a/Blastorium recoded/Powerups.h	
++++ b/Blastorium recoded/Powerups.h	
+@@ -10,9 +10,9 @@
+ #include "Tilelist.h"
+ #include "TextureManager.h"
+ 
+-#include <SFML\Window.hpp>
+-#include <SFML\Graphics.hpp>
+-#include <SFML\Audio.hpp>
++#include <SFML/Window.hpp>
++#include <SFML/Graphics.hpp>
++#include <SFML/Audio.hpp>
+ 
+ using namespace std;
+ 
+diff --git a/Blastorium recoded/Select.cpp b/Blastorium recoded/Select.cpp
+index a76f9d5..92812cb 100644
+--- a/Blastorium recoded/Select.cpp	
++++ b/Blastorium recoded/Select.cpp	
+@@ -14,9 +14,9 @@
+ 
+ #include "rapidxml.hpp"
+ 
+-#include <SFML\Window.hpp>
+-#include <SFML\Graphics.hpp>
+-#include <SFML\Audio.hpp>
++#include <SFML/Window.hpp>
++#include <SFML/Graphics.hpp>
++#include <SFML/Audio.hpp>
+ 
+ using namespace std;
+ using namespace rapidxml;
+@@ -538,4 +538,4 @@ pair < int, vector<int> > SelectManager::SelectScreen(shared_ptr<sf::RenderWindo
+ 		Win->display();  
+ 	} 
+ 	return make_pair(-1,Ret);
+-}
+\ No newline at end of file
++}
+diff --git a/Blastorium recoded/Select.h b/Blastorium recoded/Select.h
+index 2e96637..6141584 100644
+--- a/Blastorium recoded/Select.h	
++++ b/Blastorium recoded/Select.h	
+@@ -6,9 +6,9 @@
+ #include "TextureManager.h"
+ #include "Interface.h"
+ 
+-#include <SFML\Window.hpp>
+-#include <SFML\Graphics.hpp>
+-#include <SFML\Audio.hpp>
++#include <SFML/Window.hpp>
++#include <SFML/Graphics.hpp>
++#include <SFML/Audio.hpp>
+ 
+ using namespace std; 
+ 
+diff --git a/Blastorium recoded/TextureManager.cpp b/Blastorium recoded/TextureManager.cpp
+index 55d906f..8466fa3 100644
+--- a/Blastorium recoded/TextureManager.cpp	
++++ b/Blastorium recoded/TextureManager.cpp	
+@@ -1,6 +1,6 @@
+ #include "TextureManager.h"
+ 
+-#include <SFML\Graphics.hpp>
++#include <SFML/Graphics.hpp>
+ #include <vector>
+ 
+ //This texturemanager is for gameplay textures only
+diff --git a/Blastorium recoded/TextureManager.h b/Blastorium recoded/TextureManager.h
+index fb5ef65..7b012e6 100644
+--- a/Blastorium recoded/TextureManager.h	
++++ b/Blastorium recoded/TextureManager.h	
+@@ -1,7 +1,7 @@
+ #ifndef _TEXTUREMANAGER_H
+ #define _TEXTUREMANAGER_H
+ 
+-#include <SFML\Graphics.hpp>
++#include <SFML/Graphics.hpp>
+ #include <vector>
+ 
+ class TextureManager {
+@@ -27,4 +27,4 @@ class TextureManager {
+ 		sf::Texture& GetTexture(int TextureIndex);
+ };
+ 
+-#endif
+\ No newline at end of file
++#endif
+diff --git a/Blastorium recoded/Tilelist.cpp b/Blastorium recoded/Tilelist.cpp
+index 4814526..a9fa9e6 100644
+--- a/Blastorium recoded/Tilelist.cpp	
++++ b/Blastorium recoded/Tilelist.cpp	
+@@ -1,6 +1,6 @@
+ #include "Tilelist.h"
+ 
+-#include <SFML\Graphics.hpp>
++#include <SFML/Graphics.hpp>
+ #include <vector>
+ 
+ using namespace std;
+@@ -119,4 +119,4 @@ void Tilelist::SetOriginCenter (int id){
+ void Tilelist::ClearTile(){
+ 	SpriteList.clear();
+ 	return;
+-}
+\ No newline at end of file
++}
+diff --git a/Blastorium recoded/Tilelist.h b/Blastorium recoded/Tilelist.h
+index be91911..3669c24 100644
+--- a/Blastorium recoded/Tilelist.h	
++++ b/Blastorium recoded/Tilelist.h	
+@@ -1,8 +1,9 @@
+ #ifndef _TILELIST_H
+ #define _TILELIST_H
+ 
+-#include <SFML\Graphics.hpp>
++#include <SFML/Graphics.hpp>
+ #include <vector>
++#include <memory>
+ 
+ using namespace std;
+ 
+@@ -62,4 +63,4 @@ class Tilelist {
+ 		void ClearTile();
+ };
+ 
+-#endif
+\ No newline at end of file
++#endif
+diff --git a/Blastorium recoded/WeaponManager.cpp b/Blastorium recoded/WeaponManager.cpp
+index 99373e7..adfebcd 100644
+--- a/Blastorium recoded/WeaponManager.cpp	
++++ b/Blastorium recoded/WeaponManager.cpp	
+@@ -10,9 +10,9 @@
+ #include "Level.h"
+ #include "WpnBomb.h"
+ 
+-#include "SFML\Window.hpp"
+-#include "SFML\Graphics.hpp"
+-#include "SFML\Audio.hpp"
++#include "SFML/Window.hpp"
++#include "SFML/Graphics.hpp"
++#include "SFML/Audio.hpp"
+ 
+ using namespace std;
+ using namespace rapidxml;
+@@ -196,4 +196,4 @@ void WeaponManager::LoadWeapon(){
+ 		son=son->next_sibling();
+ 	} 
+ 	return;
+-}
+\ No newline at end of file
++}
+diff --git a/Blastorium recoded/WeaponManager.h b/Blastorium recoded/WeaponManager.h
+index 8991ac6..d71e0b0 100644
+--- a/Blastorium recoded/WeaponManager.h	
++++ b/Blastorium recoded/WeaponManager.h	
+@@ -9,9 +9,9 @@
+ #include "TextureManager.h"
+ #include "Tilelist.h"
+ 
+-#include <SFML\Window.hpp>
+-#include <SFML\Graphics.hpp>
+-#include <SFML\Audio.hpp>
++#include <SFML/Window.hpp>
++#include <SFML/Graphics.hpp>
++#include <SFML/Audio.hpp>
+ 
+ using namespace std;
+ 
+@@ -46,4 +46,4 @@ class WeaponManager{
+ 		void LoadWeapon();
+ };
+ 
+-#endif
+\ No newline at end of file
++#endif
+diff --git a/Blastorium recoded/WpnBomb.cpp b/Blastorium recoded/WpnBomb.cpp
+index 552b110..7d5171a 100644
+--- a/Blastorium recoded/WpnBomb.cpp	
++++ b/Blastorium recoded/WpnBomb.cpp	
+@@ -10,8 +10,8 @@
+ #include "Data.h"
+ #include "Level.h"
+ #include "Player.h"
+-#include "SFML\Graphics.hpp"
+-#include "SFML\Window.hpp"
++#include "SFML/Graphics.hpp"
++#include "SFML/Window.hpp"
+ 
+ #include "rapidxml.hpp"
+ 
+@@ -308,4 +308,4 @@ void BombManager::LoadBomb(){
+ 		DebrisTileList.AddTile(BombTextureManager.GetTexture(0),x,y,xsiz,ysiz); 
+ 		tiles=tiles->next_sibling();
+ 	}
+-}
+\ No newline at end of file
++}
+diff --git a/Blastorium recoded/WpnBomb.h b/Blastorium recoded/WpnBomb.h
+index b65176f..98f86fc 100644
+--- a/Blastorium recoded/WpnBomb.h	
++++ b/Blastorium recoded/WpnBomb.h	
+@@ -1,7 +1,7 @@
+ #ifndef _WPNBOMB_H
+ #define _WPNBOMB_H
+ 
+-#include "SFML\Graphics.hpp"
++#include "SFML/Graphics.hpp"
+  
+ #include "TextureManager.h"
+ #include "Tilelist.h"
+@@ -101,4 +101,4 @@ class BombManager{
+ };
+ 
+ 
+-#endif 
+\ No newline at end of file
++#endif 
+diff --git a/Blastorium recoded/WpnMedi.cpp b/Blastorium recoded/WpnMedi.cpp
+index 5c4b6b5..b597c67 100644
+--- a/Blastorium recoded/WpnMedi.cpp	
++++ b/Blastorium recoded/WpnMedi.cpp	
+@@ -10,8 +10,8 @@
+ #include "Data.h"
+ #include "Level.h"
+ #include "Player.h"
+-#include "SFML\Graphics.hpp"
+-#include "SFML\Window.hpp" 
++#include "SFML/Graphics.hpp"
++#include "SFML/Window.hpp" 
+  
+ #define INVDUR 90		//3 seconds
+ #define SLODUR 180		//6 seconds
+@@ -121,4 +121,4 @@ int MediManager::GetAvailability(int id,int Medilevel){
+ 	if (MediCD[id]==0) return -1;
+ 	else return ((MediCD[id]+29)/30);
+ }
+-  
+\ No newline at end of file
++  
+diff --git a/Blastorium recoded/WpnMedi.h b/Blastorium recoded/WpnMedi.h
+index d03512c..7b967f2 100644
+--- a/Blastorium recoded/WpnMedi.h	
++++ b/Blastorium recoded/WpnMedi.h	
+@@ -1,7 +1,7 @@
+ #ifndef _WPNMEDI_H
+ #define _WPNMEDI_H
+ 
+-#include "SFML\Graphics.hpp"
++#include "SFML/Graphics.hpp"
+  
+ #include "TextureManager.h"
+ #include "Tilelist.h"
+@@ -83,4 +83,4 @@ class MediManager{
+ };
+ 
+ 
+-#endif 
+\ No newline at end of file
++#endif 
+diff --git a/Blastorium recoded/WpnMine.cpp b/Blastorium recoded/WpnMine.cpp
+index 74e3f40..2580e5e 100644
+--- a/Blastorium recoded/WpnMine.cpp	
++++ b/Blastorium recoded/WpnMine.cpp	
+@@ -10,8 +10,8 @@
+ #include "Data.h"
+ #include "Level.h"
+ #include "Player.h"
+-#include "SFML\Graphics.hpp"
+-#include "SFML\Window.hpp"
++#include "SFML/Graphics.hpp"
++#include "SFML/Window.hpp"
+ 
+ #include "rapidxml.hpp"
+ 
+diff --git a/Blastorium recoded/WpnMine.h b/Blastorium recoded/WpnMine.h
+index 76f89e4..339d73f 100644
+--- a/Blastorium recoded/WpnMine.h	
++++ b/Blastorium recoded/WpnMine.h	
+@@ -1,7 +1,7 @@
+ #ifndef _WPNMINE_H
+ #define _WPNMINE_H
+ 
+-#include "SFML\Graphics.hpp"
++#include "SFML/Graphics.hpp"
+  
+ #include "TextureManager.h"
+ #include "Tilelist.h"
+@@ -101,4 +101,4 @@ class MineManager{
+ };
+ 
+ 
+-#endif 
+\ No newline at end of file
++#endif 
+diff --git a/Blastorium recoded/WpnRocket.cpp b/Blastorium recoded/WpnRocket.cpp
+index 3918807..4c2efc8 100644
+--- a/Blastorium recoded/WpnRocket.cpp	
++++ b/Blastorium recoded/WpnRocket.cpp	
+@@ -9,8 +9,8 @@
+ #include "Globals.h"
+ #include "Level.h"
+ #include "Player.h"
+-#include "SFML\Graphics.hpp"
+-#include "SFML\Window.hpp" 
++#include "SFML/Graphics.hpp"
++#include "SFML/Window.hpp" 
+ 
+ #include "rapidxml.hpp"
+ 
+diff --git a/Blastorium recoded/WpnRocket.h b/Blastorium recoded/WpnRocket.h
+index c1cbcb0..4539b24 100644
+--- a/Blastorium recoded/WpnRocket.h	
++++ b/Blastorium recoded/WpnRocket.h	
+@@ -1,7 +1,7 @@
+ #ifndef _WPNROCKET_H
+ #define _WPNROCKET_H
+ 
+-#include "SFML\Graphics.hpp"
++#include "SFML/Graphics.hpp"
+ 
+ #include <vector>
+ 
+@@ -118,4 +118,4 @@ class RocketManager{
+ 		//returns availability data
+ 			int GetAvailability(int id,int rocketlevel);
+ };
+-#endif
+\ No newline at end of file
++#endif

@@ -1,6 +1,7 @@
 #ifndef _DATA_H
 #define _DATA_H
  
+#include <memory>
 #include <vector> 
 #include <iostream>
 #include <fstream>
@@ -11,9 +12,9 @@
 //#include "Player.h" 
 //#include "WeaponManager.h" 
 
-#include <SFML\Window.hpp>
-#include <SFML\Graphics.hpp>
-#include <SFML\Audio.hpp>
+#include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 using namespace std;
 

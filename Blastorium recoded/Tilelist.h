@@ -1,8 +1,9 @@
 #ifndef _TILELIST_H
 #define _TILELIST_H
 
-#include <SFML\Graphics.hpp>
+#include <SFML/Graphics.hpp>
 #include <vector>
+#include <memory>
 
 using namespace std;
 

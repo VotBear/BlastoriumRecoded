@@ -1,7 +1,7 @@
 #ifndef _WPNBOMB_H
 #define _WPNBOMB_H
 
-#include "SFML\Graphics.hpp"
+#include "SFML/Graphics.hpp"
  
 #include "TextureManager.h"
 #include "Tilelist.h"

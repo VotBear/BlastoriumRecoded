@@ -1,6 +1,7 @@
 #ifndef _LEVEL_H
 #define _LEVEL_H
  
+#include <memory>
 #include <vector>
 #include <string>
 #include <fstream>
@@ -11,9 +12,9 @@
 
 #include "rapidxml.hpp"
 
-#include <SFML\Window.hpp>
-#include <SFML\Graphics.hpp>
-#include <SFML\Audio.hpp>
+#include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 using namespace std;
 

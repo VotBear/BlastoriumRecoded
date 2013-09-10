@@ -8,9 +8,9 @@
  
 #include "Interface.h" 
 
-#include <SFML\Window.hpp>
-#include <SFML\Graphics.hpp>
-#include <SFML\Audio.hpp>
+#include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 using namespace std;
  
@@ -89,7 +89,7 @@ sf::Texture DataManager::FinishMatch(int id,shared_ptr<sf::RenderWindow> MainWin
 	sf::Texture Bg;
 	sf::Text Title,Txt,Num1,Num2;
 	sf::Sprite Spr;
-	char Number1[20],Number2[20];
+	std::string Number1, Number2;
 
 	Fnt.loadFromFile("Fonts/bankgthd.ttf");
 	TempBg.create(MainWindow->getSize().x,MainWindow->getSize().y);
@@ -130,23 +130,23 @@ sf::Texture DataManager::FinishMatch(int id,shared_ptr<sf::RenderWindow> MainWin
 				return Bg;
 
 			} else if (evt.type==sf::Event::KeyReleased||evt.type==sf::Event::MouseButtonReleased) {	 
-				if (ite<=3){ 
+				if (ite<=3){  
 					for (int i=ite;i<=3;++i){
 						if (i==0) {
-							Txt.setString("Damage Received");	
-							itoa(TDamageDealt[0],Number1,10); 
-							itoa(TDamageDealt[1],Number2,10); 
+							Txt.setString("Damage Received");
+							Number1 = to_string(TDamageDealt[0]);
+							Number2 = to_string(TDamageDealt[1]);
 						} else if (i==1)	{
-							Txt.setString("Powerups Taken");	
-							itoa(TPowerupsTaken[0],Number1,10); 
-							itoa(TPowerupsTaken[1],Number2,10); 
+							Txt.setString("Powerups Taken");
+							Number1 = to_string(TPowerupsTaken[0]);
+							Number2 = to_string(TPowerupsTaken[1]);
 						} else if (i==2)	{
-							Txt.setString("Weapons Used");	
-							itoa(TWeaponsUsed[0],Number1,10); 
-							itoa(TWeaponsUsed[1],Number2,10); 
+							Txt.setString("Weapons Used");
+							Number1 = to_string(TWeaponsUsed[0]);
+							Number2 = to_string(TWeaponsUsed[1]);
 						} else if (i==3){
 							string tmp="Blocks Destroyed  :  ";
-							itoa(TBlocksDestroyed,Number1,10);
+							Number1 = to_string(TBlocksDestroyed);
 							tmp+=Number1;
 							Txt.setString(tmp);
 							Number1[0]='\0';
@@ -168,20 +168,20 @@ sf::Texture DataManager::FinishMatch(int id,shared_ptr<sf::RenderWindow> MainWin
 		timecntr=(timecntr+1)%60; 
 		if (ite<=3) {
 			if (ite==0) {
-				Txt.setString("Damage Received");	
-				itoa((TDamageDealt[0]*timecntr)/30,Number1,10); 
-				itoa((TDamageDealt[1]*timecntr)/30,Number2,10); 
+				Txt.setString("Damage Received");
+				Number1 = to_string((TDamageDealt[0]*timecntr)/30);
+				Number2 = to_string((TDamageDealt[1]*timecntr)/30);
 			} else if (ite==1)	{
-				Txt.setString("Powerups Taken");	
-				itoa((TPowerupsTaken[0]*timecntr)/30,Number1,10); 
-				itoa((TPowerupsTaken[1]*timecntr)/30,Number2,10); 
+				Txt.setString("Powerups Taken");
+				Number1 = to_string((TPowerupsTaken[0]*timecntr)/30);
+				Number2 = to_string((TPowerupsTaken[1]*timecntr)/30);
 			} else if (ite==2)	{
 				Txt.setString("Weapons Used");	
-				itoa((TWeaponsUsed[0]*timecntr)/30,Number1,10); 
-				itoa((TWeaponsUsed[1]*timecntr)/30,Number2,10); 
+				Number1 = to_string((TWeaponsUsed[0]*timecntr)/30);
+				Number2 = to_string((TWeaponsUsed[1]*timecntr)/30);
 			} else if (ite==3){
 				string tmp="Blocks Destroyed  :  ";
-				itoa((TBlocksDestroyed*timecntr)/30,Number1,10);
+				Number1 = to_string((TBlocksDestroyed*timecntr)/30);
 				tmp+=Number1;
 				Txt.setString(tmp);
 				Number1[0]='\0';

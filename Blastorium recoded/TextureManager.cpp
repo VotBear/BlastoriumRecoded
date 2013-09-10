@@ -1,6 +1,6 @@
 #include "TextureManager.h"
 
-#include <SFML\Graphics.hpp>
+#include <SFML/Graphics.hpp>
 #include <vector>
 
 //This texturemanager is for gameplay textures only

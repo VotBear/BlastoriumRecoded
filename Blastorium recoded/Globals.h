@@ -12,9 +12,9 @@
 #include "WpnRocket.h"
 #include "WpnMedi.h"
 
-#include <SFML\Window.hpp>
-#include <SFML\Graphics.hpp>
-#include <SFML\Audio.hpp>
+#include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 using namespace std; 
 

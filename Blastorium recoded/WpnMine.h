@@ -1,7 +1,7 @@
 #ifndef _WPNMINE_H
 #define _WPNMINE_H
 
-#include "SFML\Graphics.hpp"
+#include "SFML/Graphics.hpp"
  
 #include "TextureManager.h"
 #include "Tilelist.h"

@@ -7,9 +7,9 @@
 #include "Interface.h"
 #include "Data.h"
 
-#include "SFML\Window.hpp"
-#include "SFML\Graphics.hpp"
-#include "SFML\Audio.hpp"
+#include "SFML/Window.hpp"
+#include "SFML/Graphics.hpp"
+#include "SFML/Audio.hpp"
 
 #include <stdlib.h>
 

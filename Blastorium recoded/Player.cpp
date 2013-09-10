@@ -7,7 +7,7 @@
 
 #include "Globals.h"
 
-#include "SFML\Graphics.hpp"
+#include "SFML/Graphics.hpp"
 
 #include "rapidxml.hpp"
 

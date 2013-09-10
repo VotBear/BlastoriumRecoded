@@ -1,7 +1,7 @@
 #ifndef _WPNROCKET_H
 #define _WPNROCKET_H
 
-#include "SFML\Graphics.hpp"
+#include "SFML/Graphics.hpp"
 
 #include <vector>
 
