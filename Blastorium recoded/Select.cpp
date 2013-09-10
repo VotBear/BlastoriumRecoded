@@ -44,6 +44,7 @@ void SelectManager::InitSelect(){
 	SelS1=0; 
 	SelS2=5; 
 	StgSel=0;
+	memset(Warn,0,sizeof Warn);
 	SelectTextureManager.ClearTexture();
 	Ret.clear();
 	Ret=vector<int>(6,-1);
