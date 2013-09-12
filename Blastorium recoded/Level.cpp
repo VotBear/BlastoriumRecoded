@@ -18,41 +18,41 @@
 using namespace std;
 using namespace rapidxml;
 
-#define MAP_LENGTH 17
-#define MAP_HEIGHT 15
+const int L_MAP_LENGTH=17;
+const int L_MAP_HEIGHT=15;
 
 
 Level::Level(){
-	return;
+	
 }
 
 Level::~Level(){
-	return;
+	
 }
 
 void Level::Construct(shared_ptr<GlobalManager> Glo){
 	Globals			  = Glo;
 	MainWindow		  = Glo->GlobalWindow; 
 	usedpos=0; 
-	return;
+	
 }
 
 void Level::Init(){ 
 	usedpos=0; 
-	for(int row=0;row<MAP_HEIGHT;++row){
-		for(int col=0;col<MAP_LENGTH;++col){
+	for(int row=0;row<L_MAP_HEIGHT;++row){
+		for(int col=0;col<L_MAP_LENGTH;++col){
 			if (LevelMap[row][col]==9) SoftMap[row][col]=2; else SoftMap[row][col]=0; 
 		}
 	}
 	GenerateSoftTiles(softamt);
-	for(int row=0;row<MAP_HEIGHT;++row){
-		for(int col=0;col<MAP_LENGTH;++col){
+	for(int row=0;row<L_MAP_HEIGHT;++row){
+		for(int col=0;col<L_MAP_LENGTH;++col){
 				 if (SoftMap[row][col]==1) SoftHP[row][col]=180;
 			else if (SoftMap[row][col]==2) SoftHP[row][col]=-1;
 			else SoftHP[row][col]=0;
 		}
 	}
-	return;
+	
 }
  
 void Level::SetLevel(int ID){ 
@@ -62,15 +62,15 @@ void Level::SetLevel(int ID){
 	StartPosition.clear();
 	LoadLevel();
 	Init();
-	return;
+	
 }
 
 void Level::GenerateSoftTiles(int amt){
 	srand(time(0));
 	int cnt=0;
 	while(cnt<amt){
-		for(int row=0;row<MAP_HEIGHT;++row){
-			for(int col=0;col<MAP_LENGTH;++col){
+		for(int row=0;row<L_MAP_HEIGHT;++row){
+			for(int col=0;col<L_MAP_LENGTH;++col){
 				if (LevelMap[row][col]==1&&SoftMap[row][col]==0){
 					int now=rand()%10; 
 					if (now<3) {
@@ -82,22 +82,22 @@ void Level::GenerateSoftTiles(int amt){
 			}
 		}
 	}
-	return;
+	
 }
 
 void Level::RenderLevel(){
 	LevelTilelist.DrawTile(5,0,0,MainWindow);
 	LevelTilelist.DrawTile(6,704,0,MainWindow);
-	for(int row=0;row<MAP_HEIGHT;++row){
+	for(int row=0;row<L_MAP_HEIGHT;++row){
 		LevelTilelist.DrawTile(3,128,row*32,MainWindow);
-		LevelTilelist.DrawTile(4,160+MAP_LENGTH*32,row*32,MainWindow);
-		for(int col=0;col<MAP_LENGTH;++col){
+		LevelTilelist.DrawTile(4,160+L_MAP_LENGTH*32,row*32,MainWindow);
+		for(int col=0;col<L_MAP_LENGTH;++col){
 			LevelTilelist.DrawTile(0,160+col*32,row*32,MainWindow);
 			if (SoftMap[row][col]==2) LevelTilelist.DrawTile(1,160+col*32,row*32,MainWindow);
 			else if (SoftMap[row][col]==1) LevelTilelist.DrawTile(2,160+col*32,row*32,MainWindow);
 		}
 	} 
-	return;
+	
 }
 
 std::pair<int,int> Level::GetStartPos(){
@@ -150,7 +150,7 @@ void Level::LoadLevel(){
 		int row=atoi(rows->first_attribute("no")->value());
 		std::string val=rows->first_attribute("id")->value();
 
-		for(int i=0;i<MAP_LENGTH;++i){
+		for(int i=0;i<L_MAP_LENGTH;++i){
 			LevelMap[row][i]=val[i]-'0'; 
 			if (LevelMap[row][i]==9) SoftMap[row][i]=2; else SoftMap[row][i]=0; 
 		}
@@ -165,5 +165,5 @@ void Level::LoadLevel(){
 		StartPosition.push_back(std::make_pair(xpos,ypos)); //col, row
 		pos=pos->next_sibling();
 	} 
-	return;
+	
 }

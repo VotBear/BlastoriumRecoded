@@ -20,21 +20,17 @@
 
 using namespace std;
 using namespace rapidxml;
-
-#define Width 6
-#define Heigt 2
-#define Dist 100
-#define Stageamt 7
+ 
 
 SelectManager::SelectManager(){
 	InitSelect();
 	Ret=vector<int>(6,-1);
 	Init();
-	return;
+	
 }
 
 SelectManager::~SelectManager(){
-	return;
+	
 }
 
 //initialize
@@ -88,7 +84,7 @@ void SelectManager::InitSelect(){
 		++texture_no;
 		root=root->next_sibling();
 	}
-	return;
+	
 
 	//////////////////////
 	//end of xml read	//
@@ -121,7 +117,7 @@ void SelectManager::CheckValid(){
 	IsValid[10]=Dat->MainData.WeaponsStat[4]>=400;		//flameThrower
 	IsValid[11]=Dat->MainData.WeaponsStat[5]>=300;		//blazeCloak
 	*/
-	return;
+	
 }
 
 //Get weapon title for printing
@@ -200,7 +196,7 @@ void SelectManager::RenderStage (shared_ptr<sf::RenderWindow> Win){
 			SelectTilelist[0].DrawTile(stg,WinX/2+Distance*3,310,Win);
 		}
 	}  
-	return;
+	
 }
 
 //Renders the select screen
@@ -301,7 +297,7 @@ void SelectManager::RenderSelect (shared_ptr<sf::RenderWindow> Win){
 		Win->draw(Warnin);
 		--Warn[i];
 	}
-	return;
+	
 } 
 
 //moves stage selection to direction Dir
@@ -323,7 +319,7 @@ void SelectManager::MoveStage(int Dir,shared_ptr<sf::RenderWindow> Win){
 		Win->display();
 	} 
 	StgSel=(StgSel+Stageamt+Dir)%Stageamt;	//record movement of selection
-	return;
+	
 }
 
 //back to main menu, launch end animation
@@ -335,7 +331,7 @@ void SelectManager::CancelSelection (shared_ptr<sf::RenderWindow> Win){
 	Temp.update(TRender); 
 
 	EndScreen(Win,Temp);
-	return;
+	
 }
 
 //restarts everything

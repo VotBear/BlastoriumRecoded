@@ -11,8 +11,6 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
-using namespace std; 
-
 //forward reference to globals
 class GlobalManager;
 
@@ -64,7 +62,7 @@ class PlayerManager{
 		PlayerManager();
 		~PlayerManager();	
 
-		void Construct(shared_ptr<GlobalManager> Glo);
+		void Construct(std::shared_ptr<GlobalManager> Glo);
 			////initialization
 		void Init();				
 

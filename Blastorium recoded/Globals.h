@@ -14,9 +14,7 @@
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
-
-using namespace std; 
+#include <SFML/Audio.hpp> 
 
 //A global manager that ensures each shared_ptr has at least one counter in it, preventing deletion
 class GlobalManager{

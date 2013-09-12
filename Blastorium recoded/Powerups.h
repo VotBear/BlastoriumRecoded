@@ -12,9 +12,7 @@
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
-
-using namespace std;
+#include <SFML/Audio.hpp> 
 
 //forward reference to globals
 class GlobalManager;
@@ -25,17 +23,18 @@ class PowerupManager {
 		shared_ptr<GlobalManager>	 Globals;
 		shared_ptr<sf::RenderWindow> MainWindow; 
 
-		int Powerup[20][20],PowerupCount[20],LoopTimer[20][20];
+		int Powerup[20][20],PowerupCount[20],LoopTimer[20][20];	
 		bool Active[20][20];
-		vector<pair<int,int> > Covered; 
+
+		std::vector< pair<int,int> > Covered; 
 		TextureManager PowerupTextureManager;
 		Tilelist IconTileList, AnimTileList;
 	public:
 		PowerupManager();
 		~PowerupManager();
-		void Construct(shared_ptr<GlobalManager> Glo);
+		void Construct(std::shared_ptr<GlobalManager> Glo);
 		void Init();									//initialization
-		void SetPowerupAmount(vector<int> amt);
+		void SetPowerupAmount(std::vector<int> amt);
 		void GeneratePowerup();  
 		void GetPowerup(int id,int powerupno);
 		void RenderPowerup();

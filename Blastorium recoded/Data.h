@@ -16,8 +16,6 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
-using namespace std;
-
 class DataManager{
 	private:  
 		struct Data{
@@ -91,7 +89,7 @@ class DataManager{
 			////Returns the results of endgamechoice:
 			////Play again (2), Main Menu(1) or exit (0)
 			//////////////////////////////////////////////////////////////////////
-		sf::Texture FinishMatch(int id,shared_ptr<sf::RenderWindow> MainWindow);
+		sf::Texture FinishMatch(int id,std::shared_ptr<sf::RenderWindow> MainWindow);
 		
 			//////////////////////////////////////////////////////////////////////
 			////Loads the data from file

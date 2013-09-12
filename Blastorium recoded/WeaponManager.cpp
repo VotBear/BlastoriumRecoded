@@ -36,7 +36,7 @@ void WeaponManager::Init(){
 	Globals->GlobalMineManager->Construct(Globals);
 	Globals->GlobalRocketManager->Construct(Globals); 
 	Globals->GlobalMediManager->Construct(Globals);
-	return;
+	
 }
 
 void WeaponManager::SetWeapon(int id,int w1,int w2,int w3){
@@ -50,7 +50,7 @@ void WeaponManager::SetWeapon(int id,int w1,int w2,int w3){
 	if (w2==4) Globals->GlobalMediManager->HasMedikit(id,1);
 	if (w3==4) Globals->GlobalMediManager->HasMedikit(id,2);
 
-	return;
+	
 }
 
 void WeaponManager::UseWeapon(int id){
@@ -74,17 +74,17 @@ void WeaponManager::UseWeapon(int id){
 		Globals->GlobalMediManager->UseMedikit(id,NowLevel[id][wpn_no]);
 	
 	}
-	return;
+	
 }
 
 void WeaponManager::ChangeActiveWeapon(int id){
 	PlayerActiveWeapon[id]=(PlayerActiveWeapon[id]+1)%3;
-	return;
+	
 }
 
 void WeaponManager::UpgradeWeapon(int id,int wpn_no){
 	NowLevel[id][wpn_no]=min(NowLevel[id][wpn_no]+1,MaxLevel[id][wpn_no]);
-	return;
+	
 }
 
 void WeaponManager::CalculateLogic(){
@@ -93,7 +93,7 @@ void WeaponManager::CalculateLogic(){
 	Globals->GlobalBombManager->BombLogic(); 
 	Globals->GlobalMediManager->MediLogic();
 	//andeverythingelse
-	return;
+	
 }
 
 void WeaponManager::RenderWeapons(){
@@ -157,7 +157,7 @@ void WeaponManager::RenderWeapons(){
 			ypos+=32;
 		}
 	}
-	return;
+	
 }
 
 void WeaponManager::LoadWeapon(){
@@ -195,5 +195,5 @@ void WeaponManager::LoadWeapon(){
 		}
 		son=son->next_sibling();
 	} 
-	return;
+	
 }

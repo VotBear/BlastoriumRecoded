@@ -13,19 +13,7 @@
 #include "SFML/Window.hpp" 
 
 #include "rapidxml.hpp"
-
-#define MAP_LENGTH 17
-#define MAP_HEIGHT 15
-#define INI 360		//12 seconds
-#define DUR 30		//1 second
-#define DMG 90
-#define STN 30		//1 second
-#define SLW 60		//2 seconds
-#define DIS 60		//2 seconds
-#define CD_ 180		//6 seconds
-#define CDD 15		//0.5 second a level
-#define DL_ 57		//1.9 seconds 
-#define DLD 3		//0.1 seconds
+ 
 
 using namespace rapidxml;
 using namespace std;
@@ -65,7 +53,7 @@ RocketManager::~RocketManager(){
 void RocketManager::Construct(shared_ptr<GlobalManager> Glo){ 
 	Globals		=	Glo;
 	MainWindow	=	Glo->GlobalWindow;
-	for(int id=0; id<4; ++id) Cooldown[id]=INI;	//initial CD to avoid early abuse
+	for(int id=0; id<4; ++id) Cooldown[id]=RCKINI;	//initial CD to avoid early abuse
 	ExplosionList.clear();
 	RocketList.clear();
 }
@@ -80,7 +68,7 @@ void RocketManager::UseRocket(int id,int rocketlevel){
 		int rowpos=(Pos.first+16)/32, colpos=(Pos.second+16-160)/32;
 		RocketList.push_back(Rocket(rowpos,colpos,rocketlevel));
 	}
-	Cooldown[id]=CD_-rocketlevel*CDD;
+	Cooldown[id]=RCKCD_-rocketlevel*RCKCDD;
 }
 
 bool RocketManager::IsAvailable(int id,int rocketlevel){
@@ -88,8 +76,8 @@ bool RocketManager::IsAvailable(int id,int rocketlevel){
 }
 
 int RocketManager::GetAvailability(int id,int rocketlevel){
-	if (Cooldown[id]<=0) return -1;
-	else return ((Cooldown[id]+29)/30);
+	if (Cooldown[id]<=0) return -1;		//return nothing if ready for use
+	else return ((Cooldown[id]+29)/30);	//else return cooldown in seconds
 }
 
 void RocketManager::RocketLogic(){
@@ -110,9 +98,9 @@ void RocketManager::RocketLogic(){
 
 				if (RocketList[ite].coor==Pos){ 
 					Globals->GlobalDataManager->UpdateWeapon(3,1);
-					Globals->GlobalPlayerManager->Damage(id,DMG);										//dmg
-					Globals->GlobalPlayerManager->Disable(id,DIS+15*RocketList[ite].level);				//disable
-					Globals->GlobalPlayerManager->ChgTmpSpeed(id,0.40f,SLW+15*RocketList[ite].level);	//slow
+					Globals->GlobalPlayerManager->Damage(id,RCKDMG);										//dmg
+					Globals->GlobalPlayerManager->Disable(id,RCKDIS+15*RocketList[ite].level);				//disable
+					Globals->GlobalPlayerManager->ChgTmpSpeed(id,0.40f,RCKSLW+15*RocketList[ite].level);	//slow
 					if (RocketList[ite].level>=5) Globals->GlobalPlayerManager->Stun(id,30);			//stun
 				}
 

@@ -15,11 +15,12 @@
 
 #include "rapidxml.hpp"
 
-#define MAP_LENGTH 17
-#define MAP_HEIGHT 15
-#define DUR 75			//pre-explosion duration. 2.5 seconds
-#define EXPDUR 30		//explosion duration. 1 second
-#define DMG 6			//damage per tick (30 ticks per second) total of 180 damage
+const int B_MAP_LENGTH=17;	//self
+const int B_MAP_HEIGHT=15;	//explanatory
+
+const int BMBDUR=75;		//2.5 seconds	- pre-explosion duration. 
+const int BMBEXP=30;		//1 second		- explosion duration.
+const int BMBDMG=6;			//damage per tick (30 ticks per second) total of 180 damage
 
 using namespace rapidxml;
 
@@ -42,7 +43,7 @@ using namespace rapidxml;
 Bomb::Bomb(int id,int lvl,int row,int col){
 	owner=id;
 	level=lvl;
-	timer=DUR;
+	timer=BMBDUR;
 	row_pos=row;
 	col_pos=col;
 }
@@ -165,16 +166,16 @@ void BombManager::Explode(int row,int col,int srcdir,int level){
 	Globals->GlobalDataManager->UpdateWeapon(1,1);
 
 	//if (ExplosionList.empty()) DEBUGGER_COUNTER.restart();
-	ExplosionList.push_back(Explosion(EXPDUR,DMG,row,col,0));
+	ExplosionList.push_back(Explosion(BMBEXP,BMBDMG,row,col,0));
 
-	FireMap[row][col]+=DMG;
+	FireMap[row][col]+=BMBDMG;
 	JustExploded[row][col]=true;
 
 	for (int dir=1;dir<=4;++dir) if (dir!=srcdir){						//determine direction
 		for (int len=1;len<=2*(min(4,level));++len){					//determine length
 			int newrow=row+(len*drow[dir]), newcol=col+(len*dcol[dir]); //new positions 
 			
-			if (newrow<0||newrow>=MAP_HEIGHT||newcol<0||newcol>=MAP_LENGTH||JustExploded[newrow][newcol]) break;
+			if (newrow<0||newrow>=B_MAP_HEIGHT||newcol<0||newcol>=B_MAP_LENGTH||JustExploded[newrow][newcol]) break;
 			int spritenum;
 			
 			if (BombMap[newrow][newcol]){								//if there's a bomb, explode that one instead
@@ -194,14 +195,14 @@ void BombManager::Explode(int row,int col,int srcdir,int level){
 				break;
 			} else if (Globals->GlobalLevel->SoftMap[newrow][newcol]==1) {			//if there's a soft tile, end explosion
 				spritenum=dir+2;	   //^,>,v,< respectively
-				FireMap[newrow][newcol]+=DMG;
-				ExplosionList.push_back(Explosion(EXPDUR,DMG,newrow,newcol,spritenum));
+				FireMap[newrow][newcol]+=BMBDMG;
+				ExplosionList.push_back(Explosion(BMBEXP,BMBDMG,newrow,newcol,spritenum));
 				break;
 			} else if (Globals->GlobalLevel->SoftMap[newrow][newcol]==0) {			//if it's empty, continue explosion
 				if (len==2*(min(4,level))) spritenum=dir+2;				//if it's the fire's limit, same as soft tile
 				else					   spritenum=1+(dir+1)%2;		//else 1 if vertical, 2 if horizontal
-				FireMap[newrow][newcol]+=DMG;
-				ExplosionList.push_back(Explosion(EXPDUR,DMG,newrow,newcol,spritenum));
+				FireMap[newrow][newcol]+=BMBDMG;
+				ExplosionList.push_back(Explosion(BMBEXP,BMBDMG,newrow,newcol,spritenum));
 			} else break; 
 		}
 	}
@@ -244,7 +245,7 @@ void BombManager::RenderBomb(){ //and also a bit of explosion logic. whaaat
 		 
 		++ite;
 	}
-	for(int row=0;row<MAP_HEIGHT;++row) for(int col=0;col<MAP_LENGTH;++col) if (FireMap[row][col]&&Globals->GlobalLevel->SoftHP[row][col]>0) {  
+	for(int row=0;row<B_MAP_HEIGHT;++row) for(int col=0;col<B_MAP_LENGTH;++col) if (FireMap[row][col]&&Globals->GlobalLevel->SoftHP[row][col]>0) {  
 		//debris tiles= 0..5, 0 thickest, 5 weakest
 		int now=Globals->GlobalLevel->SoftHP[row][col];
 		now=5-(now/35);

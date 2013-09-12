@@ -11,22 +11,17 @@
 #include "Player.h"
 #include "WpnBomb.h"
 #include "WpnMine.h"
-
-#define MAP_LENGTH 17
-#define MAP_HEIGHT 15
-#define INI 360		//12 seconds
-#define DUR 30		//1 second
-#define DMG 90
-#define STN 30		//1 second
-#define SLW 60		//2 seconds
-#define DIS 60		//2 seconds
-#define CD_ 180		//6 seconds
-#define CDD 15		//0.5 second a level
-#define DL_ 57		//1.9 seconds 
-#define DLD 3		//0.1 seconds
-
-using namespace rapidxml;
-using namespace std;
+ 
+const int  RCKINI=360;		//12 seconds - Initial cooldown 
+const int  RCKDMG=90;		//damage, duh
+const int  RCKDUR=30;		//1 second - explosion duration
+const int  RCKSTN=30;		//1 second	 - stun base duration
+const int  RCKSLW=60;		//2 seconds	 - slow base duration
+const int  RCKDIS=60;		//2 seconds	 - disable base duration
+const int  RCKCD_=180;		//6 seconds	 - base cooldown
+const int  RCKCDD=15;		//0.5 second - reduction in cooldown per level
+const int  RCKDL_=57;		//1.9 seconds - rocket hit delay
+const int  RCKDLD=3;		//0.1 seconds - reduction in hit delay per level
 
 //////////////////////////////////////////////////////////////////////
 //ROCKETS (ID 3)
@@ -81,18 +76,18 @@ class RocketManager{
 				Rocket(int r,int c,int lvl){
 					coor=make_pair(r,c);
 					level=lvl;
-					timer=int(DL_ - DLD*lvl);
+					timer=int(RCKDL_ - RCKDLD*lvl);
 				}
 			};
 		//contains the cooldown each player has remaining (in ticks)
 			int Cooldown[5];
 		//contains all current explosion visuals.  
-			vector<Explosion> ExplosionList;		 			 
+			std::vector<Explosion> ExplosionList;		 			 
 		//contains all current rockets
-			vector<Rocket> RocketList;
+			std::vector<Rocket> RocketList;
 
-		shared_ptr<GlobalManager>	 Globals;
-		shared_ptr<sf::RenderWindow> MainWindow;
+		std::shared_ptr<GlobalManager>	 Globals;
+		std::shared_ptr<sf::RenderWindow> MainWindow;
 		
 		TextureManager RocketTextureManager;
 		Tilelist RocketTileList,TargetTileList,ExplosionTileList;
@@ -102,7 +97,7 @@ class RocketManager{
 		
 		~RocketManager();
 
-			void Construct(shared_ptr<GlobalManager> Glo);
+			void Construct(std::shared_ptr<GlobalManager> Glo);
 		//checks if the cooldown is off first
 			void UseRocket(int id,int rocketlevel);						
 		//checks all Rockets for impact

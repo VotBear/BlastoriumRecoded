@@ -14,10 +14,8 @@
 using namespace rapidxml;
 using namespace std;
 
-#define MAP_LENGTH 17
-#define MAP_HEIGHT 15
-
-using namespace std;
+const int P_MAP_LENGTH=17;
+const int P_MAP_HEIGHT=15; 
 
 Player::Player(int colpos,int rowpos,int color){
 	col=color;
@@ -112,7 +110,7 @@ void PlayerManager::AddPlayer(int rowpos,int colpos){
 }
 
 bool PlayerManager::check(int row,int col){ 
-	if (row<0||col<0||row>=MAP_HEIGHT||col>=MAP_LENGTH) return false;
+	if (row<0||col<0||row>=P_MAP_HEIGHT||col>=P_MAP_LENGTH) return false;
 	return (Globals->GlobalLevel->SoftMap[row][col]==0);
 }
 

@@ -11,14 +11,7 @@
 #include "Level.h"
 #include "Player.h"
 #include "SFML/Graphics.hpp"
-#include "SFML/Window.hpp" 
- 
-#define INVDUR 90		//3 seconds
-#define SLODUR 180		//6 seconds
-#define HEALCD 360		//12 seconds
-#define MEDICD 720		//24 seconds
-#define	PUHEAL 15		//powerup heal
-#define RGHEAL 5		//base regen heal (+2*Level)
+#include "SFML/Window.hpp"  
 
 using namespace rapidxml;
 using namespace std;
@@ -54,71 +47,69 @@ void MediManager::Construct(shared_ptr<GlobalManager> Glo) {
 	Globals		=	Glo; 
 	MainWindow	=	Glo->GlobalWindow;
 	for(int i=0 ; i<4 ; ++i){
-		HealCD[i]=HEALCD;
-		MediCD[i]=0;
+		HealCD[i]=MEDHCD;	//heal cooldown is default
+		MediCD[i]=0;		//weapon cooldown is 0 (ready for use)
 		IsMedi[i]=false;
 	}
 }  
 			 
 void MediManager::HasMedikit(int id, int slot){
 	IsMedi[id]=true;
-	MediID[id]=slot;
-	return;
+	MediID[id]=slot; 
 }
 			 
 void MediManager::UseMedikit(int id,int medilevel){
 	if (!IsMedi[id]) return;
 	if (MediCD[id]>0) return;
 
-	double mult=1;
-	if (medilevel==5) mult=0.85f; else mult=0.4f;
+	float mult;
+	if (medilevel==5) mult=SLOW5; else mult=SLOWN;	//slow multiplier
 
+	printf("%f\n",mult);
 	//grants effects
 	Globals->GlobalPlayerManager->Debuff(id);
-	Globals->GlobalPlayerManager->Invul	(id , INVDUR);
-	Globals->GlobalPlayerManager->ChgTmpSpeed (id , mult , SLODUR);
+	Globals->GlobalPlayerManager->ChgTmpSpeed (id , mult , MEDSLO);
+	Globals->GlobalPlayerManager->Invul	(id , MEDINV);
 	
 	//goes to CD
-	MediCD[id]=MEDICD-(60*medilevel);
-
-	return;
+	MediCD[id]=MEDWCD-(MEDCDD*medilevel); 
 }
 			 
 void MediManager::UsePowerup(int id){
 	if (!IsMedi[id]) return;
 	if (MediCD[id]>0) return;
 
-	Globals->GlobalPlayerManager->Damage(id,-PUHEAL);
-	return;
+	//if medikit is active, heal
+	Globals->GlobalPlayerManager->Damage(id,-PUHEAL);	 
 }
  
 void MediManager::MediLogic(){
-	for(int id=0 ; id<4 ; ++id){
+	for(int id=0 ; id<2 ; ++id){
 		if (!IsMedi[id]) continue;
 		
 		if (MediCD[id]>0){
-			--MediCD[id];
+			--MediCD[id];	//tick cooldown timer
 		
 		} else {
-			--HealCD[id];
+			--HealCD[id];	//tick cooldown timer
 			if (HealCD[id] <= 0){
-				int CurLVL=Globals->GlobalWeaponManager->NowLevel[id][MediID[id]];
-				Globals->GlobalPlayerManager->Damage(id,-(RGHEAL+2*CurLVL));
-				HealCD[id] = HEALCD;
+				int CURLVL=Globals->GlobalWeaponManager->NowLevel[id][MediID[id]];	//get current level
+
+				Globals->GlobalPlayerManager->Damage(id,-(RGHEAL+DGHEAL*CURLVL));	//heal based on base & lvl
+				HealCD[id] = MEDHCD;												//go to cooldown
 
 			}
 		}
-	}
-	return;
+	} 
 }
 		
 
 bool MediManager::IsAvailable(int id,int Medilevel){
-	return (MediCD[id]==0);
+	return (MediCD[id]==0);				//return true if ready for use
 }
 
 int MediManager::GetAvailability(int id,int Medilevel){
-	if (MediCD[id]==0) return -1;
-	else return ((MediCD[id]+29)/30);
+	if (MediCD[id]==0) return -1;		//no number when ready for use
+	else return ((MediCD[id]+29)/30);	//else return cooldown in seconds
 }
   

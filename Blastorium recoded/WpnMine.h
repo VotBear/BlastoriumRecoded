@@ -9,9 +9,7 @@
 #include "Player.h"
 #include "WpnBomb.h"
 
-#include <vector>
-
-using namespace std;
+#include <vector> 
 
 //////////////////////////////////////////////////////////////////////
 //MINES
@@ -70,8 +68,8 @@ class MineManager{
 		//holds the mines, duh
 			Mine MineMap[25][25];					
 		
-		shared_ptr<GlobalManager>	 Globals;
-		shared_ptr<sf::RenderWindow> MainWindow;
+		std::shared_ptr<GlobalManager>	 Globals;
+		std::shared_ptr<sf::RenderWindow> MainWindow;
 		
 		TextureManager MineTextureManager;
 		Tilelist MineTileList;
@@ -81,7 +79,7 @@ class MineManager{
 		
 		~MineManager();
 		
-			void Construct(shared_ptr<GlobalManager> Glo);
+			void Construct(std::shared_ptr<GlobalManager> Glo);
 		//duh. Checks usage limit first based on the level.
 			void PutMine(int id,int minelevel,int row,int col);		
 		//explodes the mine at that coordinate, if any.

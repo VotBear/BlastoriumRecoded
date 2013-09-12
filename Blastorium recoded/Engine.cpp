@@ -24,11 +24,11 @@ Engine::Engine(shared_ptr<GlobalManager> Global) {
 	levelid=1;
 	if(!Init(MainWindow)) throw "Could not initialize Engine";
 	Globals->GlobalDataManager->PrintData();
-	return;
+	
 }
 
 Engine::~Engine() { 
-	return;
+	
 } 
 
 //Main initialization. Create stuff.
@@ -49,7 +49,7 @@ void Engine::RenderFrame() {
 	Globals->GlobalPowerupManager->RenderPowerup();
 	Globals->GlobalWeaponManager->RenderWeapons();
 	Globals->GlobalPlayerManager->RenderPlayer();
-	return;
+	
 }
 
 //Processes all input. Will pause game if window went outta focus.
@@ -176,7 +176,7 @@ void Engine::Refresh(){
 	Globals->GlobalPlayerManager ->Init();
 	Globals->GlobalPowerupManager->Init();
 	Globals->GlobalWeaponManager ->Init(); 
-	return;
+	
 }
 
 //The function called by main. Launches game mode, and will indefinitely repeat if player chooses play again
@@ -192,6 +192,6 @@ void Engine::Go(int Map_ID,vector<int> Dat)
 		Globals->GlobalWeaponManager->SetWeapon(0,Dat[0]+1,Dat[1]+1,Dat[2]+1);
 		Globals->GlobalWeaponManager->SetWeapon(1,Dat[3]+1,Dat[4]+1,Dat[5]+1);
 	} 
-	return;
+	
 }
 

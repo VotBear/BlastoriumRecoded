@@ -28,9 +28,9 @@ GlobalManager::GlobalManager(shared_ptr<sf::RenderWindow> Win){
 	GlobalMineManager	 = make_shared<MineManager>		();	
 	GlobalRocketManager	 = make_shared<RocketManager>	(); 
 	GlobalMediManager	 = make_shared<MediManager>		();
-	return;
+	
 }
 
 GlobalManager::~GlobalManager(){
-	return;
+	
 }

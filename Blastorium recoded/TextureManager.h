@@ -7,6 +7,7 @@
 class TextureManager {
 	private: 
 		std::vector<sf::Texture> TextureList;
+
 	public:
 		
 			////Constructor

@@ -8,9 +8,7 @@
 #include "Level.h"
 #include "Player.h"
 
-#include <vector>
-
-using namespace std;
+#include <vector> 
 
 //////////////////////////////////////////////////////////////////////
 //BOMBS
@@ -67,8 +65,8 @@ class BombManager{
 		TextureManager BombTextureManager;
 		Tilelist BombTileList,FireTileList,DebrisTileList;
 
-		shared_ptr<GlobalManager>	 Globals;
-		shared_ptr<sf::RenderWindow> MainWindow;
+		std::shared_ptr<GlobalManager>	 Globals;
+		std::shared_ptr<sf::RenderWindow> MainWindow;
 
 
 	public:
@@ -79,7 +77,7 @@ class BombManager{
 	
 		~BombManager();
 		
-			void Construct(shared_ptr<GlobalManager> Glo);
+			void Construct(std::shared_ptr<GlobalManager> Glo);
 		//duh. Checks usage limit first based on the level.
 			void PutBomb(int id,int bomblevel,int row,int col);		
 		//if a bomb's time is up, it goes boom via this function

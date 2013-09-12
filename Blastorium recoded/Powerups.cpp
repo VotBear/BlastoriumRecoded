@@ -20,8 +20,8 @@
 using namespace std;
 using namespace rapidxml; 
 
-#define MAP_LENGTH 17
-#define MAP_HEIGHT 15
+const int U_MAP_LENGTH=17;
+const int U_MAP_HEIGHT=15;
 
 PowerupManager::PowerupManager(){
 	
@@ -46,7 +46,7 @@ void PowerupManager::Init(){
 
 	SetPowerupAmount(tmp);
 	GeneratePowerup();
-	return;
+	
 }
 
 void PowerupManager::SetPowerupAmount(vector<int> amt){
@@ -55,7 +55,7 @@ void PowerupManager::SetPowerupAmount(vector<int> amt){
 	PowerupCount[2]=5;
 	PowerupCount[3]=10;
 	PowerupCount[4]=10;
-	return;
+	
 }
 
 void PowerupManager::GeneratePowerup(){ 
@@ -63,8 +63,8 @@ void PowerupManager::GeneratePowerup(){
 	int cnt=0,amt=0;
 	for(int i=0;i<5;++i) amt+=PowerupCount[i];
 	while(cnt<amt){
-		for(int row=0;row<MAP_HEIGHT;++row){
-			for(int col=0;col<MAP_LENGTH;++col){
+		for(int row=0;row<U_MAP_HEIGHT;++row){
+			for(int col=0;col<U_MAP_LENGTH;++col){
 				if (Powerup[row][col]==-1&&Globals->GlobalLevel->SoftMap[row][col]==1){
 					int now=rand()%15; 
 					if (now<5) if (PowerupCount[now]>0) {
@@ -78,7 +78,7 @@ void PowerupManager::GeneratePowerup(){
 			}
 		}
 	}
-	return;
+	
 }
  
 void PowerupManager::GetPowerup(int id,int powerupno){
@@ -93,7 +93,7 @@ void PowerupManager::GetPowerup(int id,int powerupno){
 		Globals->GlobalPlayerManager->Damage(id,-60);
 		Globals->GlobalPlayerManager->Debuff(id);
 	}
-	return;
+	
 }
 
 void PowerupManager::CalculateLogic(){
@@ -109,7 +109,7 @@ void PowerupManager::CalculateLogic(){
 			++ite;
 		}
 	}
-	for(int row=0;row<MAP_HEIGHT;++row)	for(int col=0;col<MAP_LENGTH;++col) if (Active[row][col]){
+	for(int row=0;row<U_MAP_HEIGHT;++row)	for(int col=0;col<U_MAP_LENGTH;++col) if (Active[row][col]){
 		if (Globals->GlobalBombManager->FireMap[row][col]>0) {
 			Active[row][col]=false;
 			Powerup[row][col]=-1;
@@ -124,18 +124,16 @@ void PowerupManager::CalculateLogic(){
 			Active[rnow][cnow]=false;
 			Powerup[rnow][cnow]=-1;
 		}
-	}
-	return;
+	} 
 }
 
 void PowerupManager::RenderPowerup(){
-	for(int row=0;row<MAP_HEIGHT;++row)	for(int col=0;col<MAP_LENGTH;++col) if (Active[row][col]){
+	for(int row=0;row<U_MAP_HEIGHT;++row)	for(int col=0;col<U_MAP_LENGTH;++col) if (Active[row][col]){
 		IconTileList.DrawTile(Powerup[row][col],160+32*col,32*row,MainWindow);
 		if (LoopTimer[row][col]<24){
 			AnimTileList.DrawTile(LoopTimer[row][col]/3,160+32*col,32*row,MainWindow);
 		}
-	}
-	return;
+	} 
 }
 
 void PowerupManager::LoadPowerup(){ 
@@ -181,5 +179,5 @@ void PowerupManager::LoadPowerup(){
 		AnimTileList.AddTile(PowerupTextureManager.GetTexture(0),x,y,xsiz,ysiz); 
 		tiles=tiles->next_sibling();
 	}  
-	return;
+	
 }

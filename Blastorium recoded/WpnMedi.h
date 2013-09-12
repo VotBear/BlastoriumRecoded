@@ -10,16 +10,17 @@
 
 #include <vector>
 
-#define INVDUR 90		//3 seconds
-#define SLODUR 180		//6 seconds
-#define HEALCD 360		//12 seconds
-#define MEDICD 720		//24 seconds
-#define	PUHEAL 15		//powerup heal
-#define RGHEAL 5		//base regen heal (+2*Level)
+const float SLOWN=0.40f;	//60%			- magnitude of slow (normal)
+const float SLOW5=0.75f;	//25%			- magnitude of slow (max level)
+const int MEDINV=75;		//2.5 seconds	- duration of invulnerability on usage
+const int MEDSLO=180;		//6 seconds		- duration of slow on usage
+const int MEDHCD=360;		//12 seconds	- periodic regeneration interval
+const int MEDWCD=720;		//24 seconds	- weapon cooldown when used
+const int MEDCDD=60;		//2 seconds		- cooldown reduction per level
+const int PUHEAL=15;		//powerup heal
+const int RGHEAL=5;	 	    //base regen heal 
+const int DGHEAL=2;			//regen heal increase per level
 
-using namespace rapidxml;
-using namespace std;
-  
 //////////////////////////////////////////////////////////////////////
 //MEDIKITS (ID 4)
 //
@@ -52,8 +53,8 @@ class MediManager{
 
 		bool IsMedi[5]; //checks if player is using medikit or not (for Powerups.h to access)
 
-		shared_ptr<GlobalManager>	 Globals;
-		shared_ptr<sf::RenderWindow> MainWindow;
+		std::shared_ptr<GlobalManager>	 Globals;
+		std::shared_ptr<sf::RenderWindow> MainWindow;
 		
 	public:
 		MediManager();
@@ -61,7 +62,7 @@ class MediManager{
 		~MediManager();
 		
 		//initialization
-			void Construct(shared_ptr<GlobalManager> Glo);
+			void Construct(std::shared_ptr<GlobalManager> Glo);
 
 		//informs that player [id] uses medikit
 			void HasMedikit(int id,int slot);

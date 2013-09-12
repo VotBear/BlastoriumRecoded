@@ -11,9 +11,7 @@
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
-
-using namespace std;
+#include <SFML/Audio.hpp> 
 
 //manages all weapons, and the rendering
 //has access to datas such as Level and PlayerManager
@@ -24,10 +22,10 @@ class GlobalManager;
 class WeaponManager{
 	private:
 		int PlayerActiveWeapon[5];
-		shared_ptr<GlobalManager>	 Globals;
-		shared_ptr<sf::RenderWindow> MainWindow;
-		shared_ptr<PlayerManager> PlayerData; 
-		shared_ptr<Level> LevelData;
+		std::shared_ptr<GlobalManager>	 Globals;
+		std::shared_ptr<sf::RenderWindow> MainWindow;
+		std::shared_ptr<PlayerManager> PlayerData; 
+		std::shared_ptr<Level> LevelData;
 		
 		TextureManager WeaponTextureManager;
 		Tilelist FrameList,IconList,NumberList,LevelList;
@@ -35,7 +33,7 @@ class WeaponManager{
 		int PlayerEquip[5][5],NowLevel[5][5],MaxLevel[5][5];
 		WeaponManager();
 		~WeaponManager();
-		void Construct(shared_ptr<GlobalManager> Glo);
+		void Construct(std::shared_ptr<GlobalManager> Glo);
 		void SetWeapon(int id,int w1,int w2,int w3);	//initializes a player's selection of weapons
 		void ChangeActiveWeapon(int id);				//Change a player's active weapon
 		void UseWeapon(int id);							//Issue an use command of the player's (wpn_no)th weapon

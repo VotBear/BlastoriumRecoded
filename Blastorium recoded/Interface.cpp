@@ -52,7 +52,7 @@ void EndScreen(shared_ptr<sf::RenderWindow> Win, sf::Texture &bg){
 		}
 		Win->display();
 	}
-	return;
+	
 }
 
 void StartScreen(shared_ptr<sf::RenderWindow> Win, sf::Texture &bg){
@@ -72,7 +72,7 @@ void StartScreen(shared_ptr<sf::RenderWindow> Win, sf::Texture &bg){
 		}
 		Win->display();
 	} 
-	return;
+	
 } 
  
 void TEndScreen(shared_ptr<sf::RenderWindow> Win, int ite){
@@ -84,7 +84,7 @@ void TEndScreen(shared_ptr<sf::RenderWindow> Win, int ite){
 		Shade.setPosition(0,row*32); Shade.setFillColor(sf::Color(10,10,15));
 		Win->draw(Shade);
 	}
-	return;
+	
 }
  
 void TStartScreen(shared_ptr<sf::RenderWindow> Win, int ite){
@@ -98,7 +98,7 @@ void TStartScreen(shared_ptr<sf::RenderWindow> Win, int ite){
 		Shade.setPosition(0,(row+1)*32); Shade.setFillColor(sf::Color(10,10,15));
 		Win->draw(Shade);
 	} 
-	return;
+	
 }
  
 int EndGameChoice(shared_ptr<sf::RenderWindow> Win, sf::Texture &bg){ 
@@ -314,6 +314,7 @@ int PauseGameChoice(shared_ptr<sf::RenderWindow> Win, sf::Texture &bg){
 	return 0;
 }
 
+const int N=4;
 //Main menu -> Play game (3), Options/Help(2), Exit(0)
 int MainMenu(shared_ptr<sf::RenderWindow> Win){
 	sf::Texture bg;
@@ -359,7 +360,6 @@ int MainMenu(shared_ptr<sf::RenderWindow> Win){
 	//end of xml read																						   //
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-	#define N 4
 
 	sf::Texture tt; sf::Sprite Title;
 	tt.loadFromFile("Images/Misc/Title.png"); Title.setTexture(tt); 

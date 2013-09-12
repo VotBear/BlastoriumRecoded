@@ -15,10 +15,10 @@
 
 #include "rapidxml.hpp"
 
-#define MAP_LENGTH 17
-#define MAP_HEIGHT 15
-#define DUR 30		//1 second
-#define DMG 90
+const int MAP_LENGTH=17;	//self
+const int MAP_HEIGHT=15;	//explanatoryv
+const int MNEDMG=50;		//base damage
+const int MNEDMD=10;		//damage increase/level
 
 using namespace rapidxml;
 using namespace std;
@@ -85,7 +85,7 @@ void MineManager::TriggerMine(int row,int col){
 				ncol=(pos.second-160+16)/32;
 		
 			if (row==nrow&&col==ncol) {
-				int damage=50 + MineMap[nrow][ncol].level*10;
+				int damage=MNEDMG + MineMap[nrow][ncol].level*MNEDMD;
 				if (id==MineMap[nrow][ncol].owner && MineMap[nrow][ncol].level==5) damage/=4;
 				Globals->GlobalPlayerManager->Damage(id,damage);  
 				Globals->GlobalDataManager->UpdateWeapon(2,1);
